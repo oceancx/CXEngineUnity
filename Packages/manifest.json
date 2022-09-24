@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.realgames.dear-imgui": "https://github.com/realgamessoftware/dear-imgui-unity.git",
     "com.unity.collab-proxy": "1.15.1",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.7",

@@ -1,13 +1,12 @@
 {
   "dependencies": {
     "com.realgames.dear-imgui": {
-      "version": "https://github.com/realgamessoftware/dear-imgui-unity.git",
+      "version": "file:com.realgames.dear-imgui@561339c07f",
       "depth": 0,
-      "source": "git",
+      "source": "embedded",
       "dependencies": {
         "com.unity.collections": "0.5.0-preview.9"
-      },
-      "hash": "561339c07f940a0238c43d6cc77c1836373f7fa9"
+      }
     },
     "com.unity.2d.animation": {
       "version": "7.0.1",
