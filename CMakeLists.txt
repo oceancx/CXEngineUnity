@@ -9,6 +9,7 @@ list(INSERT CMAKE_PREFIX_PATH 0  ${CMAKE_SOURCE_DIR}/NativeProject)
 add_subdirectory(NativeProject)
 
 set(ENGINE_DIR ${PROJECT_SOURCE_DIR})
+set(UNITY_ASSETS_DIR ${PROJECT_SOURCE_DIR}/UnityProject/Assets)
 add_subdirectory(common)
 add_subdirectory(client)
 # add_subdirectory(server)

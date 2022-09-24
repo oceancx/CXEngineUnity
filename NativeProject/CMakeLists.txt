@@ -4,7 +4,6 @@ project ( NativeProject  )
 
 add_subdirectory(asio)
 add_subdirectory(glm)
-add_subdirectory(glew-cmake)
 add_subdirectory(imgui)
 add_subdirectory(lua-cmake)
 add_subdirectory(luacjson-cmake)

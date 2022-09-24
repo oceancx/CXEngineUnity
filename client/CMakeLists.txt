@@ -18,7 +18,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src PREFIX "Source Files"  FILES $
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/../common/src PREFIX "Source Files"  FILES ${GAME_SOURCES_CPP})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/../common/src PREFIX "Source Files"  FILES ${GAME_SOURCES_HEADER})
 
-add_library(CXEngine 
+add_library(CXEngine SHARED
     # ${SOURCES_HEADER_PRI}
     # src/animation/sprite.cpp
     # src/camera.cpp
@@ -103,7 +103,9 @@ target_link_libraries(CXEngine
     opengl32
 )
 
-# add_custom_command(TARGET CXEngine
-#     PRE_LINK
-#     COMMAND ${CMAKE_COMMAND} -E copy ${ENGINE_DIR}/externals/dist/bin/luadbg.dll ${ENGINE_DIR}/bin/$<CONFIG>/
-# )
+add_custom_command(TARGET CXEngine
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:CXEngine>"  ${UNITY_ASSETS_DIR}/Plugins
+    COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_FILE:CXEngine>  ${UNITY_ASSETS_DIR}/Plugins"
+    VERBATIM
+)
