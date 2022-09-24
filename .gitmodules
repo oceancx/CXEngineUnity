@@ -1,0 +1,30 @@
+[submodule "NativeProject/ejoy2d"]
+	path = NativeProject/ejoy2d
+	url = https://github.com/oceancx/ejoy2d.git
+[submodule "NativeProject/cxlua"]
+	path = NativeProject/cxlua
+	url = https://github.com/oceancx/cxlua.git
+[submodule "NativeProject/glm"]
+	path = NativeProject/glm
+	url = https://github.com/oceancx/glm.git
+[submodule "NativeProject/asio"]
+	path = NativeProject/asio
+	url = https://github.com/oceancx/asio.git
+[submodule "NativeProject/NESupport"]
+	path = NativeProject/NESupport
+	url = https://github.com/oceancx/NESupport.git
+[submodule "NativeProject/nlohmann"]
+	path = NativeProject/nlohmann
+	url = https://github.com/oceancx/nlohmann.git
+[submodule "NativeProject/imgui"]
+	path = NativeProject/imgui
+	url = https://github.com/oceancx/imgui.git
+[submodule "NativeProject/lua-cmake"]
+	path = NativeProject/lua-cmake
+	url = https://github.com/oceancx/lua-cmake.git
+[submodule "NativeProject/luacjson-cmake"]
+	path = NativeProject/luacjson-cmake
+	url = https://github.com/oceancx/luacjson-cmake.git
+[submodule "NativeProject/luadbg"]
+	path = NativeProject/luadbg
+	url = https://github.com/oceancx/luadbg.git
