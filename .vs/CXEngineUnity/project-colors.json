@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a17bc323-149e-a113-3c0a-4b9b1da06eb2": {
+      "ProjectGuid": "a17bc323-149e-a113-3c0a-4b9b1da06eb2",
+      "DisplayName": "Assembly-CSharp",
+      "ColorIndex": 0
+    },
+    "10aad2b8-7de8-464d-a4c9-c75e94656bf7": {
+      "ProjectGuid": "10aad2b8-7de8-464d-a4c9-c75e94656bf7",
+      "DisplayName": "RG.ImGui.Unity",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    },
+    "25e27a56-9460-7404-0e84-df04dcd48563": {
+      "ProjectGuid": "25e27a56-9460-7404-0e84-df04dcd48563",
+      "DisplayName": "RG.ImGui",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}
