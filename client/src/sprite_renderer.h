@@ -53,4 +53,3 @@ private:
 };
 #define SPRITE_RENDERER_INSTANCE SpriteRenderer::GetInstance()
 
-void luaopen_sprite_renderer(lua_State* L);

@@ -1,5 +1,7 @@
 #pragma once
-
+#include <gl3w/gl3w.h>
+#include <string>
+#include <glm/glm.hpp>
 
 
 /*

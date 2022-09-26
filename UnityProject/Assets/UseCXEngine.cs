@@ -105,7 +105,6 @@ public class UseCXEngine : MonoBehaviour
         GCHandle gcUV = GCHandle.Alloc(uvs, GCHandleType.Pinned);
 
         SetMeshBuffersFromUnity(mesh.GetNativeVertexBufferPtr(0), mesh.vertexCount, gcVertices.AddrOfPinnedObject(), gcNormals.AddrOfPinnedObject(), gcUV.AddrOfPinnedObject());
-
         gcVertices.Free();
         gcNormals.Free();
         gcUV.Free();

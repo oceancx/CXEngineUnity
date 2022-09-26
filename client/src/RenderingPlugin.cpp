@@ -6,7 +6,8 @@
 #include <assert.h>
 #include <math.h>
 #include <vector>
-
+#include <graphics/texture.h>
+#include "sprite_renderer.h"
 
 // --------------------------------------------------------------------------
 // SetTimeFromUnity, an example function we export which is called by one of the scripts.
@@ -176,13 +177,14 @@ static void DrawColoredTriangle()
 	struct MyVertex
 	{
 		float x, y, z;
+		float tx, ty;
 		unsigned int color;
 	};
 	MyVertex verts[3] =
 	{
-		{ -0.5f, -0.25f,  0, 0xFFff0000 },
-		{ 0.5f, -0.25f,  0, 0xFF00ff00 },
-		{ 0,     0.5f ,  0, 0xFF0000ff },
+		{ -0.5f, -0.25f,  0,0,0, 0xFFff0000 },
+		{ 0.5f, -0.25f,  0,0.5f,1, 0xFF00ff00 },
+		{ 0,     0.5f ,  0, 1,1, 0xFF0000ff },
 	};
 
 	// Transformation matrix: rotate around Z axis based on time.
@@ -199,6 +201,8 @@ static void DrawColoredTriangle()
 	};
 
 	s_CurrentAPI->DrawSimpleTriangles(worldMatrix, 1, verts);
+
+	
 }
 
 
@@ -293,8 +297,8 @@ static void UNITY_INTERFACE_API OnRenderEvent(int eventID)
 		return;
 
 	DrawColoredTriangle();
-	ModifyTexturePixels();
-	ModifyVertexBuffer();
+	/*ModifyTexturePixels();
+	ModifyVertexBuffer();*/
 }
 
 

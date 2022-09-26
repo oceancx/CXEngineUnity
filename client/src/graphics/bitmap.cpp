@@ -1,5 +1,7 @@
 #include "Bitmap.h"
 #include <memory>
+#include <iostream>
+#include <fstream>
 
 Bitmap::Bitmap()
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "define_types.h"
 #include "shader.h"
 
 class Texture

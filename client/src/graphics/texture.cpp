@@ -1,8 +1,9 @@
 #include "texture.h"
 #include "graphics/image.h"
 #include "graphics/bitmap.h"
-#include "logger.h"
+//#include "logger.h"
 #include <stb_image.h>
+#include <gl3w/gl3w.h>
 
 
 Texture::Texture(CreationType type, const uint8* buff,int left,int top, int width, int height)
@@ -77,7 +78,7 @@ m_Path(filePath)
 		}
 		else
 		{
-			cxlog_err("ReadBitmapFile FAILED\n");
+			printf("ReadBitmapFile FAILED\n");
 			return;
 		}
 	}
@@ -89,7 +90,7 @@ m_Path(filePath)
 		lImageBuffer = stbi_load(m_Path.c_str(), &m_Width, &m_Height, &channel, 0);
 		if (lImageBuffer == NULL)
 		{
-			cxlog_err("ReadSOIL FAILED - NO IMAGE BUFFER\n");
+			printf("ReadSOIL FAILED - NO IMAGE BUFFER\n");
 			return;
 		}
 
@@ -126,7 +127,6 @@ m_Path(filePath)
 		else
 		{
 			stbi_image_free(lImageBuffer);
-			free(lImageBuffer);
 		}
 		lImageBuffer = nullptr;
 	}

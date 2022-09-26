@@ -1,5 +1,9 @@
 #include "shader.h"
-#include "file_system.h"
+//#include "file_system.h"
+#include <fstream>
+#include <gl3w/gl3w.h>
+#include <iostream>
+#include <sstream>
 
 Shader::Shader()
 {
@@ -20,8 +24,8 @@ Shader::Shader(const char* vertPath, const char* fragPath, const char* geomPath)
 	gShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
 	try 
 	{
-		m_VertexPath = FileSystem::GetShaderPath(vertPath);
-		m_FragmentPath = FileSystem::GetShaderPath(fragPath);
+		m_VertexPath = vertPath;
+		m_FragmentPath = fragPath;
 
 		vShaderFile.open(m_VertexPath.c_str());
 		fShaderFile.open(m_FragmentPath.c_str());
@@ -38,7 +42,7 @@ Shader::Shader(const char* vertPath, const char* fragPath, const char* geomPath)
 
 		if (geomPath != nullptr)
 		{
-			m_GeometryPath = FileSystem::GetShaderPath(geomPath);
+			m_GeometryPath = geomPath;
 			gShaderFile.open(m_GeometryPath.c_str());
 			std::stringstream gShaderStream;
 			gShaderStream << gShaderFile.rdbuf();
@@ -64,6 +68,7 @@ void Shader::Init(const std::string vertCode,const std::string fragCode,const st
 	glCompileShader(m_VertexShader);
 	checkCompileErrors(m_VertexShader, "VERTEX");
 
+
 	m_FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(m_FragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(m_FragmentShader);
@@ -79,6 +84,9 @@ void Shader::Init(const std::string vertCode,const std::string fragCode,const st
 	}
 
 	m_ProgramID = glCreateProgram();
+	glBindAttribLocation(m_ProgramID, 0, "vertex");
+
+
 	glAttachShader(m_ProgramID, m_VertexShader);
 	glAttachShader(m_ProgramID, m_FragmentShader);
 	if(!gemoCode.empty())
@@ -101,7 +109,7 @@ void Shader::checkCompileErrors(GLuint shader, std::string type)
 {
 	GLint success;
 	GLchar infoLog[1024];
-	if(type != "PROGRAM")
+	if(type != "PROGRAM") 
 	{
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 		if(!success)
