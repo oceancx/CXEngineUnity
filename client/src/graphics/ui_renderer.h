@@ -4,7 +4,7 @@
 #include <NESupport.h>
 #include "resource_manager.h"
 #include "utils.h"
-#include "nanovg.h"
+//#include "nanovg.h"
 #include "pos.h"
 #include "ui.h"
 
@@ -41,8 +41,8 @@ public:
 	CXString Text;
 	CXString Font;
 	float Size;
-	NVGcolor Color;
-	NVGcolor BGColor;
+	/*NVGcolor Color;
+	NVGcolor BGColor;*/
 	int Align;
 	float WrapWidth = 0;
 	float LineHeight = 0;
@@ -61,7 +61,7 @@ public:
 	void AddToDraw(UIObject* obj);
 	void RemoveToDraw(UIObject* obj);
 	void Clear();
-	NVGcontext* GetContext();
+	//NVGcontext* GetContext();
 	void Begin();
 	void End();
 	NPCDialog* GetDialog() { return m_Dialog; }

@@ -2,6 +2,7 @@
 #include <string>
 #include "singleton.h"
 #include "pos.h"
+#include <lua.hpp>
 /*
 负责初始化Engine Update Draw
 */

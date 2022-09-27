@@ -24,6 +24,10 @@
 // library (like GLEW, GLFW etc.) can be used; here we use gl3w since it's simple and
 // straightforward.
 #	include "gl3w/gl3w.h"
+#include <animation/sprite.h>
+#include <resource_manager.h>
+#include <file_system.h>
+#include <cxlua.h>
 //#elif UNITY_LINUX
 //#	define GL_GLEXT_PROTOTYPES
 //#	include <GL/gl.h>
@@ -144,6 +148,7 @@ static GLuint CreateShader(GLenum type, const char* sourceText)
 	glCompileShader(ret);
 	return ret;
 }
+Animation* anim;
 
 void RenderAPI_OpenGLCoreES::CreateResources()
 {
@@ -214,6 +219,16 @@ void RenderAPI_OpenGLCoreES::CreateResources()
 //
 //	assert(glGetError() == GL_NO_ERROR);
 	gl3wInit();
+	char* argv[1];
+	argv[0] = "nil";
+	handle_command_args(1, argv);
+	FileSystem::InitWorkPath();
+	script_system_prepare_init();
+	script_system_init();
+	int64_t resid = RESOURCE_MANAGER_INSTANCE->EncodeWAS(SHAPEWDF, 0x54F3FC94);
+	anim = new Animation(resid);
+	anim->Pos = { 400,300 };
+	anim->Play();
 }
 
 
@@ -300,11 +315,16 @@ void RenderAPI_OpenGLCoreES::DrawSimpleTriangles(const float worldMatrix[16], in
 //	}
 //#	endif
 
-	if (testTex == nullptr) {
+	/*if (testTex == nullptr) {
 		testTex = new Texture(R"(I:\Github\CXEngineUnity\UnityProject\Assets\Art\Avatar\xx0.tga)", true);
 		SPRITE_RENDERER_INSTANCE;
 	}
-	SPRITE_RENDERER_INSTANCE->DrawTexture(testTex, { 0,0 });
+	SPRITE_RENDERER_INSTANCE->DrawTexture(testTex, { 0,0 } );*/
+	if (anim != nullptr)
+	{
+		anim->Update();
+		anim->Draw();
+	}
 }
 
 

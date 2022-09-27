@@ -110,6 +110,7 @@ void FileSystem::InitWorkPath()
 			PATH_SEP = "/";
 		}
 		VFS_WORK_DIR = path.substr(0, path.find_last_of(PATH_SEP)) + PATH_SEP;
+		VFS_WORK_DIR = R"(I:\Github\CXEngineNew\)";
 	}
 
 	std::string script_path = command_arg_opt_str("script_path","nil");

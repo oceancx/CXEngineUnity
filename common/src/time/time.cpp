@@ -1,5 +1,5 @@
 #include "Time.h"
-
+#include "define_types.h"
 const float64 Time::NANO_TO_SECONDS = 1.0e-9;
 const float64 Time::NANO_TO_MILLISECONDS = 1.0e-6;
 const float64 Time::NANO_TO_MICROSECONDS = 1.0e-3;

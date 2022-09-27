@@ -5,7 +5,8 @@
 #include "pos.h"
 #include "ui.h"
 #include "camera.h"
-
+#include <set>
+class GLFWwindow;
 struct MousePos
 {
 	float x,y;

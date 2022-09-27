@@ -6,7 +6,7 @@
 #endif
 
 #define SIMPLE_ENGINE_BUILD_PCH_PRECOMPILE_H_
-
+#include <set>
 #include <iostream>
 #include <fstream>
 #include <sstream>

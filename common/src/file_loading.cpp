@@ -1,6 +1,7 @@
 #include "file_loading.h"
 #include <NESupport.h>
-
+#include <thread>
+#include <mutex>
 
 FileLoadingThread::FileLoadingThread()
 {

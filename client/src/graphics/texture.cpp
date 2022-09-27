@@ -2,7 +2,8 @@
 #include "graphics/image.h"
 #include "graphics/bitmap.h"
 //#include "logger.h"
-#include <stb_image.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 #include <gl3w/gl3w.h>
 
 

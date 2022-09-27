@@ -3,6 +3,7 @@
 #include "timer.h"
 #include <functional>
 #include "singleton.h"
+#include <define_types.h>
 
 class Timer;
 

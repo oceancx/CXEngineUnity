@@ -1,19 +1,19 @@
 #pragma once
 //GLEW
-#include <GL/glew.h>
+//#include <GL/glew.h>
 //GLFW
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 
 #include "graphics/shader.h"
 #include "graphics/texture.h"
 #include <map>
-
-#include <freetype2/ft2build.h>
+#include "singleton.h"
+//#include <freetype2/ft2build.h>
 
 #include "ui.h"
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-#include FT_BBOX_H
+//#include FT_FREETYPE_H
+//#include FT_GLYPH_H
+//#include FT_BBOX_H
 
 
 class TextRenderer : public Singleton<TextRenderer>
@@ -95,9 +95,9 @@ private:
 
 	bool IsInRange(wchar_t c);
 
-	FT_Library m_FtLib;
+	//FT_Library m_FtLib;
 
-	FT_Face m_FtFace;
+	//FT_Face m_FtFace;
 
 	bool m_bUseKerning;
 	

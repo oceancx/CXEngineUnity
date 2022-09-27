@@ -61,47 +61,47 @@ TextRenderer::TextRenderer()
 	m_pShader->Unbind();
 
 	// All functions return a value different than 0 whenever an error occurred
-	if (FT_Init_FreeType(&m_FtLib))
-		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+	//if (FT_Init_FreeType(&m_FtLib))
+	//	std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
 
-	if (FT_New_Face(m_FtLib, FileSystem::GetGameFontPath().c_str(), 0, &m_FtFace))
-		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+	//if (FT_New_Face(m_FtLib, FileSystem::GetGameFontPath().c_str(), 0, &m_FtFace))
+	//	std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
-	//12 14 16 18 15 13
-	/*for (size_t i=0;i< m_FtFace->num_fixed_sizes;i++)
-	{
-		FT_Bitmap_Size fsize = m_FtFace->available_sizes[i];
-	}*/
-	// Set size to load glyphs as
-	m_ScreeHeight = WINDOW_INSTANCE->GetHeight();
-
-	m_FontSize = 12;
-
-	FT_Set_Char_Size(m_FtFace, 0, m_FontSize * 64, 0, 0);
-
-	// m_IsScaleable =  m_FtLib xxx is scale bn
-	m_FontHeight = m_FtFace->size->metrics.height >> 6;
-
-	m_BearingY = m_FtFace->size->metrics.ascender >> 6;
-
-	m_bUseKerning = FT_HAS_KERNING(m_FtFace);
-
-	//for (size_t i=0;s_ChineseRanges[i];i+=2)
+	////12 14 16 18 15 13
+	///*for (size_t i=0;i< m_FtFace->num_fixed_sizes;i++)
 	//{
-	//	wchar_t l = s_ChineseRanges[i];
-	//	wchar_t e = s_ChineseRanges[i+1];
-	//	while(l++<=e)
-	//	{
-	//		// Load character glyph 
-	//		if (FT_Load_Char(m_FtFace, l, FT_LOAD_RENDER))
-	//		{
-	//			std::cout << "ERROR::FREETYTPE: Failed to load Glyph :" << (l) << std::endl;
-	//			
-	//			continue;
-	//		}
-	//	}
-	//}
+	//	FT_Bitmap_Size fsize = m_FtFace->available_sizes[i];
+	//}*/
+	//// Set size to load glyphs as
+	//m_ScreeHeight = WINDOW_INSTANCE->GetHeight();
+
+	//m_FontSize = 12;
+
+	//FT_Set_Char_Size(m_FtFace, 0, m_FontSize * 64, 0, 0);
+
+	//// m_IsScaleable =  m_FtLib xxx is scale bn
+	//m_FontHeight = m_FtFace->size->metrics.height >> 6;
+
+	//m_BearingY = m_FtFace->size->metrics.ascender >> 6;
+
+	//m_bUseKerning = FT_HAS_KERNING(m_FtFace);
+
+	////for (size_t i=0;s_ChineseRanges[i];i+=2)
+	////{
+	////	wchar_t l = s_ChineseRanges[i];
+	////	wchar_t e = s_ChineseRanges[i+1];
+	////	while(l++<=e)
+	////	{
+	////		// Load character glyph 
+	////		if (FT_Load_Char(m_FtFace, l, FT_LOAD_RENDER))
+	////		{
+	////			std::cout << "ERROR::FREETYTPE: Failed to load Glyph :" << (l) << std::endl;
+	////			
+	////			continue;
+	////		}
+	////	}
+	////}
 
 	/*for (auto id : s_EmotionIDs)
 	{
@@ -124,9 +124,9 @@ TextRenderer::~TextRenderer()
 	}
 	m_FontGlyphs.clear();
 
-	// Destroy FreeType once we're finished
-	FT_Done_Face(m_FtFace);
-	FT_Done_FreeType(m_FtLib);
+	//// Destroy FreeType once we're finished
+	//FT_Done_Face(m_FtFace);
+	//FT_Done_FreeType(m_FtLib);
 }
 
 void TextRenderer::EnsureLoadText(std::wstring text, bool showEmotion)
@@ -267,7 +267,7 @@ bool TextRenderer::LoadGlyph(uint32_t charcode, bool emotion)
 	}
 	else
 	{
-		fontglyph->GlyphIndex = FT_Get_Char_Index(m_FtFace, charcode);
+		/*fontglyph->GlyphIndex = FT_Get_Char_Index(m_FtFace, charcode);
 		auto error = FT_Load_Glyph(m_FtFace, fontglyph->GlyphIndex, FT_LOAD_RENDER);
 		if (error)
 			return false;
@@ -289,7 +289,7 @@ bool TextRenderer::LoadGlyph(uint32_t charcode, bool emotion)
 		);
 		m_pShader->Unbind();
 		if (!fontglyph->Texture)
-			return false;
+			return false;*/
 	}
 	m_FontGlyphs.insert({ charcode,fontglyph });
 	return true;
@@ -310,10 +310,10 @@ int TextRenderer::MeasureRange(std::wstring text, int start, int end, bool showE
 		auto& fontGlyph = m_FontGlyphs[charcode];
 		if (m_bUseKerning && previous && fontGlyph->GlyphIndex)
 		{
-			FT_Vector  delta;
+		/*	FT_Vector  delta;
 			FT_Get_Kerning(m_FtFace, previous, fontGlyph->GlyphIndex,
 				FT_KERNING_DEFAULT, &delta);
-			kerning = delta.x >> 6;
+			kerning = delta.x >> 6;*/
 		}
 		pen_x = pen_x + fontGlyph->Advance + kerning;
 		previous = fontGlyph->GlyphIndex;
@@ -358,10 +358,10 @@ TextRenderer::MeasureInfo TextRenderer::MeasureText(std::wstring text, int bound
 		{
 			if (m_bUseKerning && previous && fontGlyph->GlyphIndex)
 			{
-				FT_Vector  delta;
+			/*	FT_Vector  delta;
 				FT_Get_Kerning(m_FtFace, previous, fontGlyph->GlyphIndex,
 					FT_KERNING_DEFAULT, &delta);
-				kerning = delta.x >> 6;
+				kerning = delta.x >> 6;*/
 			}
 			previous = fontGlyph->GlyphIndex;
 			pen_x = pen_x + kerning + fontGlyph->Advance;
@@ -455,10 +455,10 @@ void TextRenderer::DrawTextW(std::wstring text, int x, int y, Alighment align, i
 
 					if (m_bUseKerning && previous && fontGlyph->GlyphIndex)
 					{
-						FT_Vector  delta;
+						/*FT_Vector  delta;
 						FT_Get_Kerning(m_FtFace, previous, fontGlyph->GlyphIndex,
 							FT_KERNING_DEFAULT, &delta);
-						kerning = delta.x >> 6;
+						kerning = delta.x >> 6;*/
 					}
 					pen_x = pen_x + fontGlyph->Advance + kerning;
 					previous = fontGlyph->GlyphIndex;
@@ -516,10 +516,10 @@ void TextRenderer::DrawTextW(std::wstring text, int x, int y, Alighment align, i
 
 					if (m_bUseKerning && previous && fontGlyph->GlyphIndex)
 					{
-						FT_Vector  delta;
+						/*FT_Vector  delta;
 						FT_Get_Kerning(m_FtFace, previous, fontGlyph->GlyphIndex,
 							FT_KERNING_DEFAULT, &delta);
-						kerning = delta.x >> 6;
+						kerning = delta.x >> 6;*/
 					}
 					pen_x = pen_x + fontGlyph->Advance + kerning;
 					previous = fontGlyph->GlyphIndex;
@@ -667,7 +667,7 @@ void TextView::OnKeyDownEvent(int keyCode)
 {
 	if (m_IsEditing)
 	{
-		if (keyCode == GLFW_KEY_ENTER)
+		/*if (keyCode == GLFW_KEY_ENTER)
 		{
 			if (OnEnterHit)
 			{
@@ -687,7 +687,7 @@ void TextView::OnKeyDownEvent(int keyCode)
 		else if (keyCode == GLFW_KEY_DELETE)
 		{
 			TextCache.clear();
-		}
+		}*/
 	}
 }
 
@@ -695,11 +695,11 @@ void TextView::OnKeyRepeatEvent(int keyCode)
 {
 	if (m_IsEditing)
 	{
-		if (keyCode == GLFW_KEY_BACKSPACE)
+		/*if (keyCode == GLFW_KEY_BACKSPACE)
 		{
 			if (TextCache.size() > 0)
 				TextCache.pop_back();
-		}
+		}*/
 	}
 }
 

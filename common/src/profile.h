@@ -1,6 +1,7 @@
 #pragma once
 
 #include "singleton.h"
+#include "define_types.h"
 #define  PROFILER_SCOPE(msg,code)  \
 Profiler::GetInstance()->Start(msg);	\
 	code	\

@@ -25,6 +25,10 @@ extern "C" {
 #define GAME_SCREEN_WIDTH 800
 #define GAME_SCREEN_HEIGHT 600
 
+class GLFWwindow
+{
+
+};
 static const float MS_PER_UPDATE = 1000 / 60.f / 1000;
 int m_Width = 0;
 int m_Height = 0;
@@ -138,7 +142,7 @@ static void glfw_drog_function(GLFWwindow* window, int path_count, const char* p
 		s_DropFiles.push_back(paths[i]);
 	}
 	if (!s_WindowFocused) {
-		glfwFocusWindow(window);
+		//glfwFocusWindow(window);
 	}
 }
 
@@ -234,122 +238,13 @@ struct material;
 void iw_init(int w, int h)
 {
 
-	if (!glfwInit()) {
-		cxlog_err("glfwInit error!");
-		exit(EXIT_FAILURE);
-	}
-	glfwSetErrorCallback(glfw_error_callback);
-
-#if __APPLE__
-	// GL 3.2 + GLSL 150
-	const char* glsl_version = "#version 150";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
-#else
-	// GL 3.0 + GLSL 130
-	const char* glsl_version = "#version 130";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
-#endif
-	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-	std::string floatConfig = command_arg_opt_str("window_float", "0");;
-	glfwWindowHint(GLFW_FLOATING, floatConfig == "1");
-
-	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-	int monitorW = 0, monitorH = 0;
-	glfwGetMonitorWorkarea(monitor, nullptr, nullptr, &monitorW, &monitorH);
-	g_ScreenScale = monitorH / 1080.f;
-	m_pWindow = glfwCreateWindow(w * g_ScreenScale, h * g_ScreenScale, "CXEngine", nullptr, nullptr);
-	if (m_pWindow == nullptr)
-	{
-		cxlog_err("glfwCreateWindow failed!");
-		glfwTerminate();
-		exit(EXIT_FAILURE);
-	}
-	glfwGetWindowSize(m_pWindow, &m_WindowWidth, &m_WindowHeight);
-	glfwSetWindowPos(m_pWindow, (monitorW - m_WindowWidth) / 2, (monitorH - m_WindowHeight) / 2);
-	m_Width = w;
-	m_Height = h;
-
-
-	glfwMakeContextCurrent(m_pWindow);
-	glfwSwapInterval(1);
-	GLenum err = glewInit();
-	if (GLEW_OK != err) {
-		cxlog_err("glewInit error! %s\n", glewGetErrorString(err));
-		return;
-	}
-	// GLEW generates GL error because it calls glGetString(GL_EXTENSIONS), we'll consume it here.
-	glGetError();
-
-
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-	//io.ConfigViewportsNoAutoMerge = true;
-	//io.ConfigViewportsNoTaskBarIcon = true;
-
-	ImGui::StyleColorsDark();
-	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
-	ImGuiStyle& style = ImGui::GetStyle();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
-		style.WindowRounding = 0.0f;
-		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-	}
-	style.ScaleAllSizes(g_ScreenScale);
-	
-	ImGui_ImplGlfw_InitForOpenGL(m_pWindow, false);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-
-
-	glfwSetFramebufferSizeCallback(m_pWindow, glfw_framebuffer_size_callback);
-	glfwSetCursorPosCallback(m_pWindow, glfw_mouse_callback);
-	glfwSetMouseButtonCallback(m_pWindow, glfw_button_callback);
-	glfwSetKeyCallback(m_pWindow, glfw_key_callback);
-	glfwSetScrollCallback(m_pWindow, glfw_scroll_callback);
-	glfwSetCharCallback(m_pWindow, glfw_character_callback);
-	glfwSetDropCallback(m_pWindow, glfw_drog_function);
-	glfwSetWindowFocusCallback(m_pWindow, glfw_focus_function);
-
-	glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	glfwSetWindowOpacity(m_pWindow, 1.0f);
-
-	create_game_rendertexture();
-	UIRenderer::GetInstance();
-
-	// shader_init();
-	// shader_load(0, sprite_fs, sprite_vs, 0, nullptr);
-	// screen_init(screenWidth, screenHeight, 1.f);
-
-	/*char* nss[] = { "asd", "asdsd" };
-	shader_init();
-	shader_load(0, sprite_fs, sprite_vs, 0, nullptr);
-	screen_init(w, h, 1.f);
-
-	shader_adduniform(0, "X1", UNIFORM_FLOAT1);
-	shader_adduniform(0, "X2", UNIFORM_FLOAT1);
-	shader_adduniform(0, "X3", UNIFORM_FLOAT1);
-
-	int sz = material_size(0);
-	struct material* m = (struct material*)malloc(sz);
-	material_init(m, sz, 0);*/
-
-
+ 
 
 }
 
 void window_system_set_floating(int opt, int value)
 {
 	WINDOW_INSTANCE;
-	glfwWindowHint(opt, value);
 }
 
 float window_system_get_dt()
@@ -371,16 +266,11 @@ int game_get_height() {
 
 bool iw_should_close()
 {
-	return glfwWindowShouldClose(WINDOW_INSTANCE->GetGLFWwindow());
+	return false;
 }
 
 void iw_deinit() {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-
-	glfwDestroyWindow(m_pWindow);
-	glfwTerminate();
+	 
 
 	auto* ne_thread = file_loading_thread();
 	delete ne_thread;
@@ -426,69 +316,8 @@ void iw_function_to_restore_shader_or_blend_state(const ImDrawList* parent_list,
 int iw_render(lua_State* L)
 {
 	lua_pushvalue(L, 1);
-	int ref = luaL_ref(L, LUA_REGISTRYINDEX);
-	double previous = glfwGetTime();
-	double lag = 0;
-	double delta = 0;
-	ImGuiIO& io = ImGui::GetIO();
-	//io.FontGlobalScale = g_ScreenScale;
-	SCENE_MANAGER_INSTANCE->Init();
-	
+	 
 
-	while (!glfwWindowShouldClose(m_pWindow))
-	{
-		auto now = glfwGetTime();
-		g_DeltaTime = (float)(now - previous);
-		previous = now;
-
-		glfwPollEvents();
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-		ImGuiViewport* viewport = ImGui::GetMainViewport();
-		ImGui::SetNextWindowPos(viewport->Pos);
-		ImGui::SetNextWindowSize(viewport->Size);
-		ImGui::SetNextWindowViewport(viewport->ID);
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-		ImGui::Begin("Game", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking);
-		ImGui::PopStyleVar();
-		auto cs_pos = ImGui::GetCursorPos();
-		auto css_pos = ImGui::GetCursorScreenPos();
-		ImGui::GetWindowDrawList()->AddCallback(iw_function_to_select_shader_or_blend_state, nullptr);
-		auto m_TextureColor = WINDOW_INSTANCE->GetRenderTexture();
-		ImGui::GetWindowDrawList()->AddImage((void*)(uint64_t)m_TextureColor, css_pos, ImVec2(css_pos.x + m_WindowWidth, css_pos.y + m_WindowHeight), ImVec2(0, 1), ImVec2(1, 0));
-		ImGui::GetWindowDrawList()->AddCallback(iw_function_to_restore_shader_or_blend_state, nullptr);
-		ImGui::SetCursorPos(cs_pos);
-		glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
-		if (ref != -1) {
-			lua_rawgeti(L, LUA_REGISTRYINDEX, ref);
-			int res = lua_pcall(L, 0, 0, 0);
-			check_lua_error(L, res);
-		}
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		ImGui::End();
-		ImGui::Render();
-
-
-		int display_w, display_h;
-		glfwGetFramebufferSize(m_pWindow, &display_w, &display_h);
-		glViewport(0, 0, display_w, display_h);
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			GLFWwindow* backup_current_context = glfwGetCurrentContext();
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(backup_current_context);
-		}
-
-		glfwSwapBuffers(m_pWindow);
-	}
-
-	luaL_unref(L, LUA_REGISTRYINDEX, ref);
-	ref = -1;
 	return 0;
 
 }

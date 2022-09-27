@@ -1,4 +1,7 @@
 #pragma once
+#include <define_types.h>
+#include <cstdint>
+#include <lua.hpp>
 #include "pos.h"
 
 class Texture;

@@ -2,6 +2,7 @@
 
 
 #include <functional>
+#include <define_types.h>
 
 class Timer final
 {

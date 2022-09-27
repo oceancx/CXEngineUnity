@@ -1,24 +1,23 @@
 #include "audio_manager.h"
 #include "lua_bind.h"
 #include "tsv.h"
-#include "resource_manager.h"
 #include <actor\actor_manager.h>
 
-#include <extras/stb_vorbis.c>
-#define  DR_FLAC_IMPLEMENTATION
-#include <extras/dr_flac.h>  /* enables flac decoding. */
-#define DR_MP3_IMPLEMENTATION 
-#include <extras/dr_mp3.h>   /* enables mp3 decoding. */
-#define DR_WAV_IMPLEMENTATION 
-#define DR_WAVE_FORMAT_GSM_IMPLEMENTATION
-#include <extras/dr_wav.h>   /* enables wav decoding. */
-
-#define MINIAUDIO_IMPLEMENTATION
-#include <miniaudio.h>
+//#include <extras/stb_vorbis.c>
+//#define  DR_FLAC_IMPLEMENTATION
+//#include <extras/dr_flac.h>  /* enables flac decoding. */
+//#define DR_MP3_IMPLEMENTATION 
+//#include <extras/dr_mp3.h>   /* enables mp3 decoding. */
+//#define DR_WAV_IMPLEMENTATION 
+//#define DR_WAVE_FORMAT_GSM_IMPLEMENTATION
+//#include <extras/dr_wav.h>   /* enables wav decoding. */
+//
+//#define MINIAUDIO_IMPLEMENTATION
+//#include <miniaudio.h>
 
 struct AudioFile {
-	ma_device device;
-	ma_decoder decoder;
+	/*ma_device device;
+	ma_decoder decoder;*/
 	CXString path;
 	bool loop;
 	bool erase;
@@ -27,29 +26,29 @@ struct AudioFile {
 bool g_BGMSwithOn = true;
 std::deque<AudioFile*> g_AudioFiles;
 void audio_manager_clear();
-void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
-{
-	AudioFile* audioFile = (AudioFile*)pDevice->pUserData;
-	if (audioFile == NULL) {
-		return;
-	}
-	
-	if (!audioFile->erase && g_BGMSwithOn) {
-		ma_decoder* pDecoder = &audioFile->decoder;
-		ma_uint64 read = ma_decoder_read_pcm_frames(pDecoder, pOutput, frameCount);
-		if (read < frameCount) {
-			if (audioFile->loop) {
-				ma_decoder_seek_to_pcm_frame(pDecoder, 0);
-			}
-			else {
-				pDevice->pUserData = nullptr;
-				audioFile->erase = true;
-			}
-		}
-	}
-
-	(void)pInput;
-}
+//void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
+//{
+//	AudioFile* audioFile = (AudioFile*)pDevice->pUserData;
+//	if (audioFile == NULL) {
+//		return;
+//	}
+//	
+//	if (!audioFile->erase && g_BGMSwithOn) {
+//		ma_decoder* pDecoder = &audioFile->decoder;
+//		ma_uint64 read = ma_decoder_read_pcm_frames(pDecoder, pOutput, frameCount);
+//		if (read < frameCount) {
+//			if (audioFile->loop) {
+//				ma_decoder_seek_to_pcm_frame(pDecoder, 0);
+//			}
+//			else {
+//				pDevice->pUserData = nullptr;
+//				audioFile->erase = true;
+//			}
+//		}
+//	}
+//
+//	(void)pInput;
+//}
 
 void audio_manager_stop(const char* path) {
 	for (auto it = g_AudioFiles.begin(); it != g_AudioFiles.end(); it++) {
@@ -68,7 +67,7 @@ void audio_manager_clear() {
 int audio_manager_play(const char* path, bool loop)
 {
 	if (strcmp(path, "") == 0 || !g_BGMSwithOn)return -1;
-	if (g_AudioFiles.size() > 0) {
+	/*if (g_AudioFiles.size() > 0) {
 		for (auto it = g_AudioFiles.begin(); it != g_AudioFiles.end();) {
 			if ((*it)->erase) {
 				ma_device_uninit(&(*it)->device);
@@ -123,7 +122,7 @@ int audio_manager_play(const char* path, bool loop)
 		ma_device_uninit(&device);
 		ma_decoder_uninit(&decoder);
 		return -4;
-	}
+	}*/
 
 	return 0;
 };

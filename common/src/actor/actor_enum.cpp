@@ -1,4 +1,5 @@
 #include "actor_enum.h"
+#include <lua.hpp>
 void luaopen_actor_enum(lua_State* L) {
 #define REG_ENUM(e) (lua_pushinteger(L, e), lua_setglobal(L, #e))
 //ENUM_ACTOR_PROP

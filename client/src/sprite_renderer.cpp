@@ -7,6 +7,7 @@
  ** option) any later version.
  ******************************************************************/
 #include "sprite_renderer.h"
+#include <lua_bind.h>
 int W_WIDTH = 1920;
 int W_HEIGHT= 1080;
 
@@ -15,7 +16,7 @@ SpriteRenderer::SpriteRenderer()
 	// Configure shaders
 	//glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
 
-	m_pShader = new Shader("sprite.vs", "sprite.fs");
+	m_pShader = new Shader(R"(I:\Github\CXEngineNew\assets\shader\sprite.vs)", R"(I:\Github\CXEngineNew\assets\shader\sprite.fs)");
 	m_pShader->Bind();
 	glUniform1i(glGetUniformLocation(m_pShader->GetProgramID(), "image"), 0);
 	glm::mat4 projection = glm::ortho(0.0f, W_WIDTH * 1.0f, W_HEIGHT* 1.0f, 0.0f, -1.0f, 1.0f);
@@ -174,26 +175,26 @@ void SpriteRenderer::DrawFrameSprite(unsigned int textureID, glm::vec2 position,
 
 	m_pShader->Bind();
 
-	GLfloat vertices[] = {
-		// Pos      // Tex
-		0.0f, 1.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 1.0f, 0.0f,
+	//static GLfloat vertices[] = {
+	//	// Pos      // Tex
+	//	0.0f, 1.0f, 0.0f, 1.0f,
+	//	0.0f, 0.0f, 0.0f, 0.0f,
+	//	1.0f, 0.0f, 1.0f, 0.0f,
 
-		0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 1.0f, 1.0f,
-		1.0f, 0.0f, 1.0f, 0.0f
-	};
+	//	0.0f, 1.0f, 0.0f, 1.0f,
+	//	1.0f, 1.0f, 1.0f, 1.0f,
+	//	1.0f, 0.0f, 1.0f, 0.0f
+	//};
 
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	//glGenBuffers(1, &VBO);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glGenVertexArrays(1, &quadVAO);
-	glBindVertexArray(quadVAO);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
-	glBindVertexArray(0);
+	//glGenVertexArrays(1, &quadVAO);
+	//glBindVertexArray(quadVAO);
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+	//glBindVertexArray(0);
 
 
 	glm::mat4 model = mat_mul(position, size, rotate);
@@ -316,4 +317,8 @@ void sprite_renderer_init()
 }
 
 
- 
+
+void luaopen_sprite_renderer(lua_State* L)
+{
+	script_system_register_function(L, sprite_renderer_init);
+}

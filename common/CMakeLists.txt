@@ -6,8 +6,8 @@ set(GAME_SOURCES_HEADER ${_GAME_SOURCES_HEADER} PARENT_SCOPE)
 set(GAME_COMMON_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/protocol.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/cximgui.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/imgui_impl_glfw.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/imgui_impl_opengl3.cpp
+    #${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/imgui_impl_glfw.cpp
+    #${CMAKE_CURRENT_SOURCE_DIR}/src/imgui/imgui_impl_opengl3.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/time/time.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/time/timer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/time/timer_manager.cpp

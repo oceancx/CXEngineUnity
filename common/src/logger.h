@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdio>
 #include <cstdarg>
+#include "singleton.h"
+#include <lua.hpp>
 class Logger final : public Singleton<Logger>
 {
 public:

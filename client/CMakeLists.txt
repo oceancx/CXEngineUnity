@@ -5,7 +5,7 @@ find_package(CXLua)
 #find_package(GLEW CONFIG)
 #find_package(glfw3)
 #find_package(freetype CONFIG)
-#find_package(IMGui)
+find_package(IMGui)
 #find_package(gsm)
 #find_package(miniaudio)
 #find_package(nanovg)
@@ -20,9 +20,9 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/src PREFIX "Source Files"  FILES $
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/../common/src PREFIX "Source Files"  FILES ${GAME_SOURCES_CPP})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/../common/src PREFIX "Source Files"  FILES ${GAME_SOURCES_HEADER})
 add_library(CXEngine SHARED
-    #${SOURCES_HEADER_PRI}
-    # src/animation/sprite.cpp
-    # src/camera.cpp
+    ${SOURCES_HEADER_PRI}
+    src/animation/sprite.cpp
+    src/camera.cpp
     src/graphics/shader.h
     src/graphics/shader.cpp
     src/graphics/texture.h
@@ -31,31 +31,30 @@ add_library(CXEngine SHARED
     src/graphics/bitmap.cpp
     src/sprite_renderer.cpp
     src/sprite_renderer.h
-    # src/graphics/ui_renderer.cpp
-    # src/game.cpp
-    # src/input_manager.cpp
-    # src/net.cpp
-    # src/main.cpp
-    # src/math/vector.cpp    
-    # src/resource_manager.cpp
-    # src/sprite_batch.cpp
-    # src/sprite_renderer.cpp
-    # src/text_renderer.cpp
-    # src/texture_manager.cpp
-    # src/ui.cpp
-    # src/window.cpp
-    # src/audio/audio_manager.cpp
-    # ${GAME_SOURCES_HEADER}
-    # ${GAME_COMMON_SRCS}
-    # src/actor/move.cpp
-    # src/scene/base_scene.cpp
-    # src/scene/game_map.cpp
-    # src/scene/scene_manager.cpp
-    src/RenderAPI.cpp
-    src/RenderingPlugin.cpp
-    src/RenderAPI_D3D11.cpp
-    src/RenderAPI_D3D12.cpp
-    src/RenderAPI_OpenGLCoreES.cpp
+    src/graphics/ui_renderer.cpp
+    src/game.cpp
+    src/input_manager.cpp
+    src/net.cpp
+    src/math/vector.cpp    
+    src/resource_manager.cpp
+    src/sprite_batch.cpp
+    src/sprite_renderer.cpp
+    src/text_renderer.cpp
+    src/texture_manager.cpp
+    src/ui.cpp
+    src/window.cpp
+    src/audio/audio_manager.cpp
+    ${GAME_SOURCES_HEADER}
+    ${GAME_COMMON_SRCS}
+    src/actor/move.cpp
+    src/scene/base_scene.cpp
+    src/scene/game_map.cpp
+    src/scene/scene_manager.cpp
+    src/Unity/RenderAPI.cpp
+    src/Unity/RenderingPlugin.cpp
+    src/Unity/RenderAPI_D3D11.cpp
+    src/Unity/RenderAPI_D3D12.cpp
+    src/Unity/RenderAPI_OpenGLCoreES.cpp
     src/gl3w/gl3w.c
 )
 
@@ -85,7 +84,6 @@ target_compile_definitions(CXEngine
     -DSIMPLE_ENGINE 
     -DWIN32
     -DRENDERINGPLUGIN_EXPORTS
-    -DSTB_IMAGE_IMPLEMENTATION
 )
 if(WIN32)
 target_compile_definitions(CXEngine 
@@ -108,6 +106,7 @@ target_link_libraries(CXEngine
   PRIVATE 
     CXLua::CXLua
     opengl32
+    IMGui::IMGui
 )
 
 add_custom_command(TARGET CXEngine

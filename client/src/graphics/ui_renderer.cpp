@@ -1,7 +1,7 @@
 ﻿#include "ui_renderer.h"
-#include "nanovg.h"
-#define NANOVG_GL3_IMPLEMENTATION
-#include "nanovg_gl.h"
+//#include "nanovg.h"
+//#define NANOVG_GL3_IMPLEMENTATION
+//#include "nanovg_gl.h"
 #include "window.h"
 #include "file_system.h"
 #include "input_manager.h"
@@ -49,34 +49,34 @@ void UINEImageView::Draw()
 }
 
 
-NVGcontext* vg = NULL;
+//NVGcontext* vg = NULL;
 UIRenderer::UIRenderer()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
+	//glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
 
-	vg = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
-	if (vg == NULL) {
-		cxlog_info("Could not init nanovg.\n");
-		return;
-	}
+	//vg = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+	//if (vg == NULL) {
+	//	cxlog_info("Could not init nanovg.\n");
+	//	return;
+	//}
 
-	int res = 0;
-	/*res = nvgCreateFont(vg, "MSYH", FileSystem::GetFontPath("msyh.ttf").c_str());
-	assert(res >= 0);*/
-	/*res = nvgCreateFont(vg, "MSHT", FileSystem::GetFontPath("msht.ttf").c_str());
-	assert(res >= 0);*/
-	res = nvgCreateFont(vg, "SIMSUN", FileSystem::GetFontPath("simsun.ttc").c_str());
-	assert(res >= 0);
-	m_Dialog = new NPCDialog();
+	//int res = 0;
+	///*res = nvgCreateFont(vg, "MSYH", FileSystem::GetFontPath("msyh.ttf").c_str());
+	//assert(res >= 0);*/
+	///*res = nvgCreateFont(vg, "MSHT", FileSystem::GetFontPath("msht.ttf").c_str());
+	//assert(res >= 0);*/
+	//res = nvgCreateFont(vg, "SIMSUN", FileSystem::GetFontPath("simsun.ttc").c_str());
+	//assert(res >= 0);
+	//m_Dialog = new NPCDialog();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }
 
 UIRenderer::~UIRenderer()
 {
 	SafeDelete(m_Dialog);
-	nvgDeleteGL3(vg);
+	//nvgDeleteGL3(vg);
 }
 
 void UIRenderer::Update()
@@ -130,19 +130,19 @@ void UIRenderer::Clear()
 	m_Objects.clear();
 }
 
-NVGcontext* UIRenderer::GetContext()
-{
-	return vg;
-}
+//NVGcontext* UIRenderer::GetContext()
+//{
+//	return vg;
+//}
 void UIRenderer::Begin()
 {
 	float width = (float)WINDOW_INSTANCE->GetWidth();
 	float height = (float)WINDOW_INSTANCE->GetHeight();
-	nvgBeginFrame(vg, width, height, width* 1.0f / height);
+	//nvgBeginFrame(vg, width, height, width* 1.0f / height);
 }
 void UIRenderer::End()
 {
-	nvgEndFrame(vg);
+	//nvgEndFrame(vg);
 }
 NEImageView::NEImageView(uint64_t resoureID /*= 0*/, std::vector<PalSchemePart>* patMatrix /*= nullptr*/)
 {
@@ -163,96 +163,96 @@ void NEImageView::Draw()
 	auto it = s_ImageCache.find(id);
 	int imageid = 0;
 	if (it == s_ImageCache.end()) {
-		imageid = nvgCreateImageRGBA(vg, frame.Width, frame.Height, 0, (unsigned char*)frame.Src.data());
-		s_ImageCache.insert({ id,imageid });
+		//imageid = nvgCreateImageRGBA(vg, frame.Width, frame.Height, 0, (unsigned char*)frame.Src.data());
+		//s_ImageCache.insert({ id,imageid });
 	}
 	else {
 		imageid = it->second;
 	}
-	nvgSave(vg);
-	float left = m_pBS->Pos.x - frame.KeyX;
-	float top = m_pBS->Pos.y - frame.KeyY;
-	float w = (float)m_pBS->Width;
-	float h = (float)m_pBS->Height;
-	float rot = 0.0f / 180.0f * NVG_PI;
-	float pad = 10;
+	//nvgSave(vg);
+	//float left = m_pBS->Pos.x - frame.KeyX;
+	//float top = m_pBS->Pos.y - frame.KeyY;
+	//float w = (float)m_pBS->Width;
+	//float h = (float)m_pBS->Height;
+	//float rot = 0.0f / 180.0f * NVG_PI;
+	//float pad = 10;
 
-	NVGpaint imgPaint = nvgImagePattern(vg, left, top, w, h, rot, imageid, 1);
-	nvgBeginPath(vg);
-	/*left += pad;
-	top += pad;
-	w -= pad * 2;
-	h -= pad * 2;*/
-	nvgRect(vg, left, top, w, h);
-	nvgFillPaint(vg, imgPaint);
-	nvgFill(vg);
-	nvgRestore(vg);
+	//NVGpaint imgPaint = nvgImagePattern(vg, left, top, w, h, rot, imageid, 1);
+	//nvgBeginPath(vg);
+	///*left += pad;
+	//top += pad;
+	//w -= pad * 2;
+	//h -= pad * 2;*/
+	//nvgRect(vg, left, top, w, h);
+	//nvgFillPaint(vg, imgPaint);
+	//nvgFill(vg);
+	//nvgRestore(vg);
 }
 
 
 UITextView::UITextView()
 	:Text(""),
 	Font("SIMSUN"),
-	Size(14.f),
-	Color(nvgRGBA(255, 255, 255, 255)),
+	Size(14.f)
+	/*Color(nvgRGBA(255, 255, 255, 255)),
 	BGColor(nvgRGBA(0, 0, 0, 0)),
-	Align(NVG_ALIGN_LEFT | NVG_ALIGN_TOP)
+	Align(NVG_ALIGN_LEFT | NVG_ALIGN_TOP)*/
 {
-	nvgTextMetrics(vg, 0, 0, &Height);
+	//nvgTextMetrics(vg, 0, 0, &Height);
 }
 
 void UITextView::Draw()
 {
 	if (Text.size() == 0)return;
 	if (!Visible)return;
-	nvgSave(vg);
-	
-	nvgFontSize(vg, Size);
-	nvgFontFace(vg, Font.c_str()); 
-	nvgTextAlign(vg, Align);
+	//nvgSave(vg);
+	//
+	//nvgFontSize(vg, Size);
+	//nvgFontFace(vg, Font.c_str()); 
+	//nvgTextAlign(vg, Align);
 
-	const char* start = Text.data();
-	const char* end = Text.data() + Text.size();
-	if (WrapWidth!= 0) {
-		nvgBeginPath(vg);
+	//const char* start = Text.data();
+	//const char* end = Text.data() + Text.size();
+	//if (WrapWidth!= 0) {
+	//	nvgBeginPath(vg);
 
-		nvgFillColor(vg, BGColor);
-		nvgRoundedRect(vg, X - 8, Y - 8, Width + 16, Height + 16, 8.f);
-		nvgFill(vg);
+	//	nvgFillColor(vg, BGColor);
+	//	nvgRoundedRect(vg, X - 8, Y - 8, Width + 16, Height + 16, 8.f);
+	//	nvgFill(vg);
 
-		NVGtextRow rows[3];
-		int nrows, lnum = 0;
-		float x, y;
-		x = X;
-		y = Y;
-		while ((nrows = nvgTextBreakLines(vg, start, end, WrapWidth, rows, 3))) {
-			for (int i = 0; i < nrows; i++) {
-				NVGtextRow* row = &rows[i];
+	//	NVGtextRow rows[3];
+	//	int nrows, lnum = 0;
+	//	float x, y;
+	//	x = X;
+	//	y = Y;
+	//	while ((nrows = nvgTextBreakLines(vg, start, end, WrapWidth, rows, 3))) {
+	//		for (int i = 0; i < nrows; i++) {
+	//			NVGtextRow* row = &rows[i];
 
-				nvgFillColor(vg, Color);
-				nvgText(vg, x, y, row->start, row->end);
-				nvgFillColor(vg, Color);
-				nvgText(vg, x, y, row->start, row->end);
+	//			nvgFillColor(vg, Color);
+	//			nvgText(vg, x, y, row->start, row->end);
+	//			nvgFillColor(vg, Color);
+	//			nvgText(vg, x, y, row->start, row->end);
 
-				lnum++;
-				y += LineHeight;
-			}
-			start = rows[nrows - 1].next;
-		}
-	}
-	else {
-		nvgFillColor(vg, Color);
-		nvgText(vg, X, Y, Text.c_str(), NULL);
+	//			lnum++;
+	//			y += LineHeight;
+	//		}
+	//		start = rows[nrows - 1].next;
+	//	}
+	//}
+	//else {
+	//	nvgFillColor(vg, Color);
+	//	nvgText(vg, X, Y, Text.c_str(), NULL);
 
-		nvgFillColor(vg, Color);
-		nvgText(vg, X, Y, Text.c_str(), NULL);
-	}
-	nvgRestore(vg);
+	//	nvgFillColor(vg, Color);
+	//	nvgText(vg, X, Y, Text.c_str(), NULL);
+	//}
+	//nvgRestore(vg);
 }
 
 void UITextView::SetText(const char* txt, float x, float y,int align,float wrapWidth)
 {
-	Text = txt;
+	/*Text = txt;
 	X = x;
 	Y = y;
 	Align = align;
@@ -271,12 +271,12 @@ void UITextView::SetText(const char* txt, float x, float y,int align,float wrapW
 
 	if (Align & NVG_ALIGN_CENTER) {
 		X = X - Width / 2;
-	}
+	}*/
 }
 
 NPCDialog::NPCDialog()
 {
-	m_ShowMode = SHOW_PLOT_TEXT;
+	/*m_ShowMode = SHOW_PLOT_TEXT;
 	Visible = false;
 	
 	m_TvBG = new NEImageView(WZIFEWDF, 0x73D983B7);
@@ -293,7 +293,7 @@ NPCDialog::NPCDialog()
 	Width = (float)tvBGsp->Width;
 	Height = (float)tvBGsp->Height;
 
-	INPUT_MANAGER_INSTANCE->RegisterView(this);
+	INPUT_MANAGER_INSTANCE->RegisterView(this);*/
 }
 
 NPCDialog::~NPCDialog()
@@ -330,11 +330,11 @@ void NPCDialog::Draw()
 
 void NPCDialog::SetText(const char* txt)
 {
-	auto* tvBGsp = m_TvBG->GetBaseSprite();
+	/*auto* tvBGsp = m_TvBG->GetBaseSprite();
 	float x = X + 16;
 	float y = Y + 24;
 	float wrapWidth = Width - 32.f;
-	m_Tv->SetText(txt, x, y, NVG_ALIGN_TOP | NVG_ALIGN_LEFT, wrapWidth);
+	m_Tv->SetText(txt, x, y, NVG_ALIGN_TOP | NVG_ALIGN_LEFT, wrapWidth);*/
 }
 
 bool NPCDialog::OnClick(int button, int x, int y)
@@ -368,7 +368,7 @@ void NPCDialog::AddOption(string txt, int func)
 	op.tv = make_shared<UITextView>();
 	op.tv->Text = txt;
 	op.tv->Size = 20.f;
-	op.tv->Color = nvgRGB(198, 22, 24);
+	//op.tv->Color = nvgRGB(198, 22, 24);
 	m_Options.push_back(op);
 }
 
@@ -379,7 +379,7 @@ void NPCDialog::UpdateOptionsLayout()
 	for (int i = 0; i < (int)m_Options.size(); i++) {
 		auto& op = m_Options[i];
 		float bd[4];
-		nvgTextBounds(vg, sx, sy, op.tv->Text.c_str(), 0, bd);
+		//nvgTextBounds(vg, sx, sy, op.tv->Text.c_str(), 0, bd);
 		op.tv->X = sx;
 		op.tv->Y = sy;
 		op.tv->Width = bd[2] - bd[0];
@@ -466,21 +466,21 @@ int ui_textview_set_pos(lua_State* L)
 
 int ui_textview_set_color(lua_State* L)
 {
-#define break_color_rgba(c)  nvgRGBA((c>>24)& 0xff,(c& 0xff0000) >> 16,  (c& 0xff00) >> 8, (c& 0xff))
-	UITextView* tv = lua_check_pointer<UITextView>(L, 1);
-	uint32_t color = (uint32_t)lua_tointeger(L, 2);
-	tv->Color = break_color_rgba(color);
-#undef break_color_rgba
+//#define break_color_rgba(c)  nvgRGBA((c>>24)& 0xff,(c& 0xff0000) >> 16,  (c& 0xff00) >> 8, (c& 0xff))
+//	UITextView* tv = lua_check_pointer<UITextView>(L, 1);
+//	uint32_t color = (uint32_t)lua_tointeger(L, 2);
+//	tv->Color = break_color_rgba(color);
+//#undef break_color_rgba
 	return 0;
 }
 
 int ui_textview_set_bg_color(lua_State* L)
 {
-#define break_color_rgba(c)  nvgRGBA((c>>24)& 0xff,(c& 0xff0000) >> 16,  (c& 0xff00) >> 8, (c& 0xff))
-	UITextView* tv = lua_check_pointer<UITextView>(L, 1);
-	uint32_t color = (uint32_t)lua_tointeger(L, 2);
-	tv->BGColor = break_color_rgba(color);
-#undef break_color_rgba
+//#define break_color_rgba(c)  nvgRGBA((c>>24)& 0xff,(c& 0xff0000) >> 16,  (c& 0xff00) >> 8, (c& 0xff))
+//	UITextView* tv = lua_check_pointer<UITextView>(L, 1);
+//	uint32_t color = (uint32_t)lua_tointeger(L, 2);
+//	tv->BGColor = break_color_rgba(color);
+//#undef break_color_rgba
 	return 0;
 }
 

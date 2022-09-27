@@ -1,5 +1,5 @@
 #pragma once
-#include <lua.h>
+#include <lua.hpp>
 enum EActorProp
 {
 	PROP_ID,

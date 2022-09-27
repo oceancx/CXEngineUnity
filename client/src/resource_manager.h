@@ -13,7 +13,7 @@
 #include <script_system.h>
 #include "tsv.h"
 #include <NESupport.h>
-
+#include "singleton.h"
  // A static singleton ResourceManager class that hosts several
  // functions to load Textures and Shaders. Each loaded texture
  // and/or shader is also stored for future reference by string

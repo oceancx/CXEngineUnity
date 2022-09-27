@@ -2,7 +2,8 @@
 #pragma once
 #include "ui.h"
 #include <functional>
-
+#include <NESupport.h>
+#include "singleton.h"
 struct NE::Sprite;
 struct NE::Sprite::Sequence;
 using CXPos = Pos;

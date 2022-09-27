@@ -8,10 +8,10 @@
 #include "cxrandom.h"
 #include "file_system.h"
 #include "cxmath.h"
+#include "stb_image.h"
 
 #ifndef SIMPLE_SERVER
 #include "sprite_renderer.h"
-#include <stb_image.h>
 #endif
 #include "logger.h"
 

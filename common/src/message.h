@@ -3,7 +3,7 @@
 #include "define_types.h"
 #include "singleton.h"
 
-
+#include <set>
 class BaseGameEntity;
 
 enum GameMessageType

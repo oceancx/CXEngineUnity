@@ -1,6 +1,8 @@
 #include "cximgui.h"
 #include <imgui.h>
 #include <string.h>
+#include <cstdint>
+#include <iostream>
 //ImGuiContext*  CreateContext(ImFontAtlas* shared_font_atlas);
 //UnSupported CreateContext
 //void  DestroyContext(ImGuiContext* ctx);

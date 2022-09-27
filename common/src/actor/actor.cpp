@@ -1,4 +1,5 @@
 #include "actor.h"
+#include <lua.hpp>
 #include "cxlua.h"
 #include "utils.h"
 #include "cxmath.h"
@@ -14,7 +15,7 @@
 #include "text_renderer.h"
 #include "resource_manager.h"
 #include "graphics/ui_renderer.h"
-#include "nanovg.h"
+//#include "nanovg.h"
 #endif
 #include <script_system.h>
 #include "actor_enum.h"
@@ -52,16 +53,16 @@ Actor::Actor(uint64_t pid)
 	m_NameTV = new UITextView();
 	m_NameTV->Font = "SIMSUN";
  	m_NameTV->Size = 16.f;
-	m_NameTV->Align = NVG_ALIGN_CENTER;
-	m_NameTV->Color = nvgRGBA(118, 253, 140, 255);
+	/*m_NameTV->Align = NVG_ALIGN_CENTER;
+	m_NameTV->Color = nvgRGBA(118, 253, 140, 255);*/
 	UIRenderer::GetInstance()->AddToDraw(m_NameTV);
 
 	m_SayTV = new UITextView();
 	m_SayTV->Font = "SIMSUN";
 	m_SayTV->Size = 14.f;
-	m_SayTV->Align = NVG_ALIGN_BOTTOM | NVG_ALIGN_CENTER;
-	m_SayTV->Color = nvgRGBA(255, 255, 255, 255); // text color
-	m_SayTV->BGColor = nvgRGBA(30, 30, 30, 128);
+	//m_SayTV->Align = NVG_ALIGN_BOTTOM | NVG_ALIGN_CENTER;
+	//m_SayTV->Color = nvgRGBA(255, 255, 255, 255); // text color
+	//m_SayTV->BGColor = nvgRGBA(30, 30, 30, 128);
 	m_SayTV->WrapWidth = 100;
 	UIRenderer::GetInstance()->AddToDraw(m_SayTV);
 
@@ -1061,9 +1062,8 @@ void luaopen_actor(lua_State* L)
 
 	script_system_register_function(L, action_system_get_action_size);
 	script_system_register_function(L, action_system_get_action_name);
-
-
-#define REG_ENUM(e) (lua_pushinteger(L, e), lua_setglobal(L, #e))
+	 
+#define REG_ENUM(e)  (lua_pushinteger(L, e),lua_setglobal(L, #e))
 	REG_ENUM(ACTOR_TYPE_DEFAULT);
 	REG_ENUM(ACTOR_TYPE_PLAYER);
 	REG_ENUM(ACTOR_TYPE_SUMMON);
