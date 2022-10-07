@@ -175,6 +175,8 @@ void SpriteRenderer::DrawFrameSprite(unsigned int textureID, glm::vec2 position,
 
 	m_pShader->Bind();
 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendEquation(GL_FUNC_ADD);
 	//static GLfloat vertices[] = {
 	//	// Pos      // Tex
 	//	0.0f, 1.0f, 0.0f, 1.0f,

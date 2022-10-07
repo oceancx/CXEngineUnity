@@ -1,6 +1,7 @@
 #include "logger.h"
 #include <script_system.h>
 #include "utils.h"
+#include <file_system.h>
 
 void log_print(const char *str) 
 {
@@ -44,10 +45,25 @@ int lua_cxlog_warn(lua_State* L)
 
 void Logger::Print(const char *format, ...)
 {
+	if (logf == nullptr)return;
 	va_list ap;
 	va_start(ap, format);
+	//vfprintf(logf, format, ap);
 	vprintf(format, ap);
-	va_end(ap);
+	va_end(ap); 
+}
+
+Logger::Logger()
+{
+	//logf = (fopen(FileSystem::GetAbsPath("log.txt").c_str(), "w"));
+	//assert(logf != NULL);
+	std::string path = FileSystem::GetAbsPath("log.txt");
+	freopen(path.c_str(), "w", stdout);
+}
+
+Logger::~Logger()
+{
+	
 }
 
 void luaopen_logger(lua_State* L) {

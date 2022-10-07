@@ -149,7 +149,6 @@ static GLuint CreateShader(GLenum type, const char* sourceText)
 	return ret;
 }
 Animation* anim;
-
 void RenderAPI_OpenGLCoreES::CreateResources()
 {
 	// Make sure that there are no GL error flags set before creating resources
@@ -218,17 +217,14 @@ void RenderAPI_OpenGLCoreES::CreateResources()
 //	testTex = new Texture(R"(C:\Users\oceancx\Pictures\WX_20220912204550.jpg)", true);
 //
 //	assert(glGetError() == GL_NO_ERROR);
-	gl3wInit();
-	char* argv[1];
-	argv[0] = "nil";
-	handle_command_args(1, argv);
-	FileSystem::InitWorkPath();
-	script_system_prepare_init();
-	script_system_init();
-	int64_t resid = RESOURCE_MANAGER_INSTANCE->EncodeWAS(SHAPEWDF, 0x54F3FC94);
-	anim = new Animation(resid);
-	anim->Pos = { 400,300 };
-	anim->Play();
+
+	
+	if (m_APIType == kUnityGfxRendererOpenGLCore)
+	{
+#if UNITY_WIN
+		gl3wInit();
+#endif
+	}
 }
 
 
@@ -320,11 +316,7 @@ void RenderAPI_OpenGLCoreES::DrawSimpleTriangles(const float worldMatrix[16], in
 		SPRITE_RENDERER_INSTANCE;
 	}
 	SPRITE_RENDERER_INSTANCE->DrawTexture(testTex, { 0,0 } );*/
-	if (anim != nullptr)
-	{
-		anim->Update();
-		anim->Draw();
-	}
+ 
 }
 
 

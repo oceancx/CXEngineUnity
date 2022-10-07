@@ -28,5 +28,5 @@ void Profiler::End()
 	
 
 	auto dur = Time::GetCurrentTime() - start_time;
-	Logger::Print("[Profiler]:%s. dur=%ldms\n", msg.c_str(), dur);
+	Logger::GetInstance()->Print("[Profiler]:%s. dur=%ldms\n", msg.c_str(), dur);
 }

@@ -8,6 +8,12 @@
 #include <vector>
 #include <graphics/texture.h>
 #include "sprite_renderer.h"
+#include <animation/sprite.h>
+#include <cxlua.h>
+#include <script_system.h>
+#include <file_system.h>
+#include <resource_manager.h>
+#include <logger.h>
 
 // --------------------------------------------------------------------------
 // SetTimeFromUnity, an example function we export which is called by one of the scripts.
@@ -162,6 +168,7 @@ static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType ev
 
 
 
+
 // --------------------------------------------------------------------------
 // OnRenderEvent
 // This will be called for GL.IssuePluginEvent script calls; eventID will
@@ -289,24 +296,59 @@ static void ModifyVertexBuffer()
 	s_CurrentAPI->EndModifyVertexBuffer(bufferHandle);
 }
 
-
+Animation* anim2;
 static void UNITY_INTERFACE_API OnRenderEvent(int eventID)
 {
 	// Unknown / unsupported graphics device type? Do nothing
 	if (s_CurrentAPI == NULL)
 		return;
-
-	DrawColoredTriangle();
+	//DrawColoredTriangle();
 	/*ModifyTexturePixels();
 	ModifyVertexBuffer();*/
 }
 
+static void UNITY_INTERFACE_API OnGameDraw(int eventID);
+
 
 // --------------------------------------------------------------------------
 // GetRenderEventFunc, an example function we export which is used to get a rendering event callback function.
-
 extern "C" UnityRenderingEvent UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API GetRenderEventFunc()
 {
-	return OnRenderEvent;
+	return OnGameDraw;
 }
 
+
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API OnGameStart()
+{
+	char* argv[] =
+	{
+		{"nil"},
+		{"--cwd=I:/Github/CXEngineUnity/"},
+		{"--script_path=scripts/client/"},
+		{"-Debug"},
+	};
+	handle_command_args(4, argv);
+	FileSystem::InitWorkPath();
+	script_system_prepare_init();
+	script_system_run_main_script();
+	script_system_init();
+	cxlog_info("game start");
+}
+
+
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API OnGameUpdate(float t)
+{
+	script_system_update();
+}
+
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API OnGameEnd()
+{
+	script_system_deinit();
+}
+
+void UNITY_INTERFACE_API OnGameDraw(int eventID)
+{
+	if (s_CurrentAPI == NULL)
+		return;
+	script_system_draw();
+}

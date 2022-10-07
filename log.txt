@@ -1,0 +1,70 @@
+Symbol file LoadedFromMemory doesn't match image I:\Github\CXEngineUnity\UnityProject\Library\PackageCache\com.unity.visualscripting@1.7.5\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image I:\Github\CXEngineUnity\UnityProject\Library\PackageCache\com.unity.visualscripting@1.7.5\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+game start--cwd=I:/Github/CXEngineUnity/
+--script_path=scripts/client/
+-Debug
+script_system_dofile	i:\Github\CXEngineUnity\scripts\share\enums.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\share\enums_protocol.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\share\vfs.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\share\utils.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\share\content_system.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\share\actor_metatable.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\actor_metatable.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\net_manager.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\combat\combat_system.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\combat\combat_context.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\combat\skill.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\combat\buff.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\combat\client\skill.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\combat\client\combat_system.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\scene_manager.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\actor_manager.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\event_system.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\input_manager.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\addon_manager.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\module\team.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\module\dialog.lua
+script_system_dofile	i:\Github\CXEngineUnity\scripts\client\module\summon.lua
+on_game_start
+
+=================================================================
+	Native Crash Reporting
+=================================================================
+Got a UNKNOWN while executing native code. This usually indicates
+a fatal error in the mono runtime or one of the native libraries 
+used by your application.
+=================================================================
+
+=================================================================
+	Managed Stacktrace:
+=================================================================
+	  at <unknown> <0xffffffff>
+	  at Game:OnGameUpdate <0x000e5>
+	  at <CallPluginAtEndOfFrames>d__5:MoveNext <0x001b2>
+	  at UnityEngine.SetupCoroutine:InvokeMoveNext <0x001b0>
+	  at <Module>:runtime_invoke_void_object_intptr <0x0019f>
+	  at <unknown> <0xffffffff>
+	  at UnityEditor.EditorGUIUtility:RenderPlayModeViewCamerasInternal_Injected <0x00106>
+	  at UnityEditor.EditorGUIUtility:RenderPlayModeViewCamerasInternal <0x00092>
+	  at UnityEditor.PlayModeView:RenderView <0x00b52>
+	  at UnityEditor.GameView:OnGUI <0x0268a>
+	  at UnityEditor.HostView:InvokeOnGUI <0x003e8>
+	  at UnityEditor.DockArea:DrawView <0x000d2>
+	  at UnityEditor.DockArea:OldOnGUI <0x014c2>
+	  at UnityEngine.UIElements.IMGUIContainer:DoOnGUI <0x01ae0>
+	  at UnityEngine.UIElements.IMGUIContainer:HandleIMGUIEvent <0x00b92>
+	  at UnityEngine.UIElements.IMGUIContainer:DoIMGUIRepaint <0x0082a>
+	  at UnityEngine.UIElements.UIR.RenderChainCommand:ExecuteNonDrawMesh <0x00a71>
+	  at UnityEngine.UIElements.UIR.UIRenderDevice:EvaluateChain <0x02e32>
+	  at UnityEngine.UIElements.UIR.RenderChain:Render <0x00cfa>
+	  at UnityEngine.UIElements.UIRRepaintUpdater:Update <0x007c2>
+	  at UnityEngine.UIElements.VisualTreeUpdater:UpdateVisualTreePhase <0x001e9>
+	  at UnityEngine.UIElements.Panel:UpdateForRepaint <0x00212>
+	  at UnityEngine.UIElements.Panel:Repaint <0x00592>
+	  at UnityEngine.UIElements.UIElementsUtility:DoDispatch <0x002b0>
+	  at UnityEngine.UIElements.UIElementsUtility:UnityEngine.UIElements.IUIElementsUtility.ProcessEvent <0x002c2>
+	  at UnityEngine.UIElements.UIEventRegistration:ProcessEvent <0x00233>
+	  at <>c:<.cctor>b__1_2 <0x0009a>
+	  at UnityEngine.GUIUtility:ProcessEvent <0x00114>
+	  at <Module>:runtime_invoke_void_int_intptr_intptr& <0x001b5>
+=================================================================

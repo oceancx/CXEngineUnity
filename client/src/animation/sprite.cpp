@@ -47,10 +47,10 @@ BaseSprite::BaseSprite(uint64_t resoureID, std::vector<PalSchemePart>* patMatrix
 	m_pSprite->Path = std::to_string(resoureID) + "/" + std::to_string(spritInfo->pati);
 
 	CurrentFrame = 0;
-	for (int i = 0; i < TotalFrames; i++)
+	/*for (int i = 0; i < TotalFrames; i++)
 	{
 		UtilsGetFrameTexture(m_pSprite, i);
-	}
+	}*/
 	Pos = { 0,0 };
 	Offset = { 0,0 };
 	FrameInterval = 0.064f;

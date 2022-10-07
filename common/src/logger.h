@@ -6,21 +6,23 @@
 #include <cstdarg>
 #include "singleton.h"
 #include <lua.hpp>
+#include <fstream>
+#include <cstdio>
 class Logger final : public Singleton<Logger>
 {
 public:
 	static void Error(std::string msg) { std::cout<<"Error:"<<msg<<std::endl; }
 	static void Warning(std::string msg) { std::cout<<"Warning:"<<msg<<std::endl; }
-	static void Print(const char *format, ...);
+	 void Print(const char *format, ...);
 
 	static void XXXPrint(int level,std::string log,std::string x) {
 		std::cout << "LogPrint:" << log << std::endl;
 	}
 
 public:
-	Logger() {}
-	~Logger(){};
-	
+	Logger();
+	~Logger();
+	FILE* logf;
 };
 
 #define LOG_PRINT(format,...) Logger::GetInstance()->Print(format,__VA_ARGS__)
