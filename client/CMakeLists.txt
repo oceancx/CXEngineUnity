@@ -84,7 +84,7 @@ target_compile_definitions(CXEngine
     -DSIMPLE_ENGINE 
     -DWIN32
     -DRENDERINGPLUGIN_EXPORTS
-)
+) 
 if(WIN32)
 target_compile_definitions(CXEngine 
   PRIVATE
@@ -94,8 +94,6 @@ target_compile_definitions(CXEngine
     -D_UNICODE
     -DWIN32_LEAN_AND_MEAN
     -D_WIN32_WINNT=0x0501
-
-    
 )
 endif(WIN32)
 
@@ -115,5 +113,9 @@ add_custom_command(TARGET CXEngine
     COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_FILE:CXEngine> to ${UNITY_ASSETS_DIR}/Plugins"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:CXEngine>"  ${UNITY_ASSETS_DIR}/Plugins
     COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_PDB_FILE:CXEngine> to ${UNITY_ASSETS_DIR}/Plugins"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:lua>"  ${UNITY_ASSETS_DIR}/Plugins
+    COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_FILE:lua> to ${UNITY_ASSETS_DIR}/Plugins"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:lua>"  ${UNITY_ASSETS_DIR}/Plugins
+    COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_PDB_FILE:lua> to ${UNITY_ASSETS_DIR}/Plugins"
     VERBATIM
 )

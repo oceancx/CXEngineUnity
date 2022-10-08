@@ -71,7 +71,7 @@ namespace SLua
 #if UNITY_IPHONE && !UNITY_EDITOR
 	const string LUADLL = "__Internal";
 #else
-	const string LUADLL = "slua";
+	const string LUADLL = "lua";
 #endif
 
 #if LUA_5_3

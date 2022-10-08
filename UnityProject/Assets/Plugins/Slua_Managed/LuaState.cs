@@ -596,7 +596,7 @@ namespace SLua
         public void openExtLib()
         {
             LuaDLL.luaS_openextlibs(L);
-            LuaSocketMini.reg(L);
+            //LuaSocketMini.reg(L);
         }
 
         public void bindUnity()

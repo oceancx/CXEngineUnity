@@ -536,7 +536,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Standalone: IMGUI_FEATURE_CUSTOM_ASSERT;IMGUI_FEATURE_FREETYPE
+    Standalone: IMGUI_FEATURE_CUSTOM_ASSERT;IMGUI_FEATURE_FREETYPE;LUA_5_3
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

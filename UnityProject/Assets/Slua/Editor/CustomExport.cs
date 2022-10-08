@@ -24,6 +24,8 @@ namespace SLua
 {
     using System.Collections.Generic;
     using System;
+    using ImGuiNET;
+    using UnityEngine;
 
     public class CustomExport
     {
@@ -44,11 +46,17 @@ namespace SLua
             // .net 4.6 export class not match used class on runtime, so skip it
             //add(typeof(Dictionary<int, string>), "DictIntStr");
             add(typeof(string), "String");
-            
+
             // add your custom class here
             // add( type, typename)
             // type is what you want to export
             // typename used for simplify generic type name or rename, like List<int> named to "ListInt", if not a generic type keep typename as null or rename as new type name
+            add(typeof(ImGui), null);
+            add(typeof(ImGuiCol), null);
+            add(typeof(ImGuiUn), null);
+            add(typeof(ImGuiHoveredFlags), null);
+            add(typeof(ImGuiSelectableFlags), null);
+            add(typeof(List<string>), null);
         }
 
         public static void OnAddCustomAssembly(ref List<string> list)
@@ -77,6 +85,40 @@ namespace SLua
             };
         }
 
+        public static List<string> MatchTypeFilterList = new List<string>()
+        {
+            "UnityEngine.Rendering.LocalKeyword",
+            "System.ReadOnlySpan<System.Char>",
+        }; 
+         
+        public static bool FilterMatchType(string code)
+        {
+            for(int i = 0; i < MatchTypeFilterList.Count; i++)
+            {
+                if (code.Contains(MatchTypeFilterList[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static List<string> DelegationFilterList = new List<string>()
+        {
+            "ImGuiNET_ImGuiInputTextCallback",
+            "ImGuiNET_ImGuiSizeCallback"
+        };
+        public static bool FilterDelegation(string filename)
+        {
+            for (int i = 0; i < DelegationFilterList.Count; i++)
+            {
+                if (filename.Contains(DelegationFilterList[i]))
+                {
+                    return true;
+                }
+            } 
+            return false;
+        }
+
         public static List<string> FunctionFilterList = new List<string>()
         {
             "UIWidget.showHandles",
@@ -87,7 +129,12 @@ namespace SLua
             "UnityEngine.Texture.get_imageContentsHash",
             "UnityEngine.Texture.set_imageContentsHash",
             "UnityEngine.Texture.imageContentsHash",
-        };
+            ///////////////////////////////////////////
+            "ImGuiNET.ImGui.GetStyleColorVec4",
+            "ImGuiNET.ImGuiUn.ScreenToImGui",
+            "ImGuiNET.ImGuiUn.ImGuiToScreen",
+            
+        }; 
         // black list if white list not given
         public static void OnGetNoUseList(out List<string> list)
         {
@@ -188,7 +235,22 @@ namespace SLua
                 "UnityEngine.Light",
                 "UnityEngine.LightProbeGroup",
                 "UnityEngine.Playables",
-                "UnityEngine.Rendering",
+                /////////////////////////////
+                "UnityEngine.ComputeShader",
+                "UnityEngine.Device.Screen",
+                "UnityEngine.LineRenderer",
+                "UnityEngine.TrailRenderer",
+                "UnityEngine.Graphics",
+                "UnityEngine.Material",
+                "UnityEngine.Rendering.CommandBuffer",
+                "UnityEngine.Screen",
+                "UnityEngine.Shader",
+                "Unity.Profiling.LowLevel.Unsafe.ProfilerRecorderDescription",
+                "Unity.Profiling.LowLevel.Unsafe.ProfilerCategoryDescription",
+                "Unity.Profiling.LowLevel.Unsafe.ProfilerUnsafeUtility",
+                "Unity.Profiling.LowLevel.Unsafe.ProfilerMarkerData",
+                //"ImGuiNET.ImGuiSizeCallbackData",
+                //"ImGuiNET.ImGuiInputTextCallback",
             };
         }
     }
