@@ -65,7 +65,7 @@ namespace SLua
             {
                 EditorApplication.update += Update;
                 // use this delegation to ensure dispose luavm at last
-                EditorApplication.playModeStateChanged += (PlayModeStateChange state) =>
+               EditorApplication.playModeStateChanged += (PlayModeStateChange state) =>
                 {
                     switch (state)
                     {
@@ -923,11 +923,13 @@ namespace SLua
                         return false;
 
                     string f = DelegateExportFilename(path, t);
-
-                    StreamWriter file = new StreamWriter(f, false, Encoding.UTF8);
-                    file.NewLine = NewLine;
-                    WriteDelegate(t, file);
-                    file.Close();
+                    if (!CustomExport.FilterDelegation(f))
+                    {
+                        StreamWriter file = new StreamWriter(f, false, Encoding.UTF8);
+                        file.NewLine = NewLine;
+                        WriteDelegate(t, file);
+                        file.Close();
+                    }
                     return false;
                 }
                 else
@@ -1940,7 +1942,7 @@ namespace SLua
                     return true;
                 }
             }
-			
+
 			if (mi.DeclaringType.IsGenericType && mi.DeclaringType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
             {
                 if (mi.MemberType == MemberTypes.Constructor)
@@ -1964,7 +1966,7 @@ namespace SLua
                     }
                 }
             }
-
+            
             return mi.IsDefined(typeof(DoNotToLuaAttribute), false);
         }
 
@@ -1985,7 +1987,6 @@ namespace SLua
                 {
                     ConstructorInfo ci = cons[n];
                     ParameterInfo[] pars = ci.GetParameters();
-
                     if (cons.Length > 1)
                     {
                         if (isUniqueArgsCount(cons, ci))
@@ -1993,24 +1994,31 @@ namespace SLua
                         else
                             Write(file, "{0}(matchType(l,argc,2{1})){{", first ? "if" : "else if", TypeDecl(pars));
                     }
-
-                    for (int k = 0; k < pars.Length; k++)
+                    if (CustomExport.FilterMatchType(TypeDecl(pars)))
                     {
-                        ParameterInfo p = pars[k];
-                        bool hasParams = p.IsDefined(typeof(ParamArrayAttribute), false);
-                        CheckArgument(file, p.ParameterType, k, 2, IsOutArg(p), hasParams);
+                        Write(file, "return 0;");
+                        Write(file, "}");
                     }
-                    Write(file, "o=new {0}({1});", TypeDecl(t), FuncCall(ci));
-                    WriteOk(file);
-                    if (t.Name == "String") // if export system.string, push string as ud not lua string
-                        Write(file, "pushObject(l,o);");
                     else
-                        Write(file, "pushValue(l,o);");
-                    Write(file, "return 2;");
-                    if (cons.Length == 1)
-                        WriteCatchExecption(file);
-                    Write(file, "}");
-                    first = false;
+                    {
+                        for (int k = 0; k < pars.Length; k++)
+                        {
+                            ParameterInfo p = pars[k];
+                            bool hasParams = p.IsDefined(typeof(ParamArrayAttribute), false);
+                            CheckArgument(file, p.ParameterType, k, 2, IsOutArg(p), hasParams);
+                        }
+                        Write(file, "o=new {0}({1});", TypeDecl(t), FuncCall(ci));
+                        WriteOk(file);
+                        if (t.Name == "String") // if export system.string, push string as ud not lua string
+                            Write(file, "pushObject(l,o);");
+                        else
+                            Write(file, "pushValue(l,o);");
+                        Write(file, "return 2;");
+                        if (cons.Length == 1)
+                            WriteCatchExecption(file);
+                        Write(file, "}");
+                        first = false;
+                    } 
                 }
 
                 if (cons.Length > 1)
@@ -2325,9 +2333,17 @@ namespace SLua
                                 Write(file, "{0}(argc=={1}){{", first ? "if" : "else if", mi.IsStatic ? mi.GetParameters().Length : mi.GetParameters().Length + 1);
                             else
                                 Write(file, "{0}(matchType(l,argc,{1}{2})){{", first ? "if" : "else if", mi.IsStatic && !isExtension ? 1 : 2, TypeDecl(pars, isExtension ? 1 : 0));
-                            WriteFunctionCall(mi, file, t, bf);
-                            Write(file, "}");
-                            first = false;
+                            if (CustomExport.FilterMatchType(TypeDecl(pars, isExtension ? 1 : 0)))
+                            {
+                                Write(file, "return 0;");
+                                Write(file, "}");
+                            }
+                            else
+                            {
+                                WriteFunctionCall(mi, file, t, bf);
+                                Write(file, "}");
+                                first = false;
+                            }
                         }
                     }
                 }
@@ -2580,7 +2596,15 @@ namespace SLua
 		
 		private void CheckArgument(StreamWriter file, Type t, int n, int argstart, bool isout, bool isparams)
 		{
-			Write(file, "{0} a{1};", TypeDecl(t), n + 1);
+            var argtype = TypeDecl(t);
+            if (argtype.Contains("LocalKeyword"))
+            {
+                Write(file, "{0} a{1};", argtype, n + 1);
+            }
+            else
+            {
+                Write(file, "{0} a{1};", argtype, n + 1);
+            }
 			
 			if (!isout)
 			{

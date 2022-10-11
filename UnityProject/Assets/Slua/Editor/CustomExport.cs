@@ -57,6 +57,7 @@ namespace SLua
             add(typeof(ImGuiHoveredFlags), null);
             add(typeof(ImGuiSelectableFlags), null);
             add(typeof(List<string>), null);
+            add(typeof(Game), null);
         }
 
         public static void OnAddCustomAssembly(ref List<string> list)
@@ -249,8 +250,8 @@ namespace SLua
                 "Unity.Profiling.LowLevel.Unsafe.ProfilerCategoryDescription",
                 "Unity.Profiling.LowLevel.Unsafe.ProfilerUnsafeUtility",
                 "Unity.Profiling.LowLevel.Unsafe.ProfilerMarkerData",
-                //"ImGuiNET.ImGuiSizeCallbackData",
-                //"ImGuiNET.ImGuiInputTextCallback",
+                "ImGuiNET.ImGuiSizeCallbackData",
+                "ImGuiNET.ImGuiInputTextCallback",
             };
         }
     }

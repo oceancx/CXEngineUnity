@@ -50,13 +50,12 @@ void luaopen_script_system(lua_State* L);
 
 HINSTANCE hDll = nullptr;
 
-void script_system_prepare_init()
+void script_system_prepare_init(lua_State* L)
 {
-	L = luaL_newstate();
 	luaL_openlibs(L);
 	luaopen_filesystem(L);
 	luaopen_script_system(L);
-	luaopen_cximgui(L);
+	//luaopen_cximgui(L);
 	luaopen_logger(L);
 	luaopen_ne_support(L);
 	luaopen_timer_manager(L);
@@ -87,13 +86,16 @@ void script_system_prepare_init()
 #ifdef SIMPLE_SERVER
 	luaopen_game_server(L);
 #endif // !SIMPLE_SERVER
+}
 
+void script_system_run_main_script(lua_State* L)
+{
 	int res = luaL_loadbuffer(L, script_system_lua_code, strlen(script_system_lua_code), "__script_system_lua_code__");
 	check_lua_error(L, res);
 	res = lua_pcall(L, 0, LUA_MULTRET, 0);
 	check_lua_error(L, res);
 
-	typedef 	int (*LuaDbgFunc)(lua_State* L);
+	typedef int (*LuaDbgFunc)(lua_State* L);
 	hDll = nullptr;
 #ifdef SIMPLE_ENGINE
 	hDll = ::LoadLibrary(L"cxluadbg.dll");
@@ -105,25 +107,32 @@ void script_system_prepare_init()
 		LuaDbgFunc instance = (LuaDbgFunc)GetProcAddress(hDll, "luaopen_luadbg");
 		instance(L);
 	}
-}
 
-void script_system_run_main_script()
-{
 	string path = command_arg_opt_str("luapath", "main.lua");
-	int res = luaL_dofile(L, FileSystem::GetLuaPath(path).c_str());
+	res = luaL_dofile(L, FileSystem::GetLuaPath(path).c_str());
 	check_lua_error(L, res);
 }
 
-void script_system_init()
+void script_system_init(lua_State* _L)
 {
-	if (g_DebugInCpp)return;
-	
+	L = _L;
+	char* argv[] =
+	{
+		{"nil"},
+		{"--cwd=I:/Github/CXEngineUnity/"},
+		{"--script_path=scripts/client/"},
+		{"-Debug"},
+	};
+	handle_command_args(4, argv);
+	FileSystem::InitWorkPath();
+
+	script_system_prepare_init(L);
+	script_system_run_main_script(L);
 	script_system_call_function(L, "on_script_system_init");
 }
 
-bool script_system_update()
+bool script_system_update(float t)
 {
-	if (g_DebugInCpp)return true;
 	std::vector<any> rets = script_system_call_function(L, "on_script_system_update");
 	if (rets.size() > 0) {
 		bool success = any_cast<bool>(rets[0]);
@@ -134,12 +143,16 @@ bool script_system_update()
 	}
 }
 
-
 void script_system_draw()
 {
-	if (g_DebugInCpp)return;
-	script_system_call_function(L, "on_script_system_draw");
+	actor_manager_draw();
+	created_animation_draw();
 }
+void script_system_draw_ui()
+{
+	script_system_call_function(L, "on_script_system_draw_ui");
+}
+
 
 void script_system_deinit()
 {
@@ -149,6 +162,17 @@ void script_system_deinit()
 		FreeLibrary(hDll);
 	}
 	script_system_call_function(L, "on_script_system_deinit");
+	L = nullptr;
+}
+
+void script_system_test(lua_State* L)
+{
+	cxlog_info("hello %d", L);
+}
+
+void script_system_test2(void* L)
+{
+	cxlog_info("hello2 %d", L);
 }
 
 lua_State* script_system_get_luastate()
@@ -190,6 +214,7 @@ int lua_time_now(lua_State* L) {
 	lua_pushinteger(L, now);
 	return 1;
 }
+
 
 
 void luaopen_script_system(lua_State* L)

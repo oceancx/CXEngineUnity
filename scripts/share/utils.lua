@@ -62,34 +62,34 @@ function gen_next_sortk_fn(tbl)
     end
 end
 
-imgui.HorizontalLayout = function(tbl, next_fn, cb, wrap_w)
-    local line_width = wrap_w or imgui.GetContentRegionAvail()
-    local cx, cy = imgui.GetCursorPos()
-    local layout_x = cx
-    do
-        local st, v, k
-        while true do
-            st, v, k = next_fn(tbl, st)
-            if st == nil then break end
-            if k == nil then k = st end
-            cb(k, v)
-            local iw, ih = imgui.GetItemRectSize()
-            layout_x = layout_x + iw + 8
-            if layout_x < line_width - iw - 8 then
-                imgui.SameLine()
-            else
-                layout_x = cx
-            end
-        end
-        if layout_x ~= cx then imgui.NewLine() end
-    end
-end
+-- imgui.HorizontalLayout = function(tbl, next_fn, cb, wrap_w)
+--     local line_width = wrap_w or imgui.GetContentRegionAvail()
+--     local cx, cy = imgui.GetCursorPos()
+--     local layout_x = cx
+--     do
+--         local st, v, k
+--         while true do
+--             st, v, k = next_fn(tbl, st)
+--             if st == nil then break end
+--             if k == nil then k = st end
+--             cb(k, v)
+--             local iw, ih = imgui.GetItemRectSize()
+--             layout_x = layout_x + iw + 8
+--             if layout_x < line_width - iw - 8 then
+--                 imgui.SameLine()
+--             else
+--                 layout_x = cx
+--             end
+--         end
+--         if layout_x ~= cx then imgui.NewLine() end
+--     end
+-- end
 
-function imgui_std_horizontal_button_layout(tbl, next_fn, on_click)
-    imgui.HorizontalLayout(tbl, next_fn, function(k, v)
-        if imgui.Button(k) then on_click(k, v) end
-    end)
-end
+-- function imgui_std_horizontal_button_layout(tbl, next_fn, on_click)
+--     imgui.HorizontalLayout(tbl, next_fn, function(k, v)
+--         if imgui.Button(k) then on_click(k, v) end
+--     end)
+-- end
 
 function utils_save_rows_to_tsv(path, col_names, rows, def_row)
     local f = io.open(path, 'w+')
@@ -409,9 +409,9 @@ function show_next_tree_node(node)
     end
 end
 
-function IsServer() return process_is_server() end
+-- function IsServer() return process_is_server() end
 
-function IsClient() return not process_is_server() end
+-- function IsClient() return not process_is_server() end
 
 function prop_id_to_name(prop_id)
     local tbl = content_system_get_table('actor_template')
@@ -454,35 +454,35 @@ function utils_next_uid(ns)
     return __uids__[ns]
 end
 
-imgui.TextFormat = function(...) return imgui.Text(string.format(...)) end
+-- imgui.TextFormat = function(...) return imgui.Text(string.format(...)) end
 
-imgui.InputTextEx = function(name, sb, width)
-    if width then
-        imgui.PushItemWidth(width)
-        local res = imgui.InputText(name, sb)
-        imgui.PopItemWidth()
-    else
-        return imgui.InputText(name, sb)
-    end
-end
+-- imgui.InputTextEx = function(name, sb, width)
+--     if width then
+--         imgui.PushItemWidth(width)
+--         local res = imgui.InputText(name, sb)
+--         imgui.PopItemWidth()
+--     else
+--         return imgui.InputText(name, sb)
+--     end
+-- end
 
-imgui.DropInputText = function(name, sb, width)
-    local res
-    if width then
-        imgui.PushItemWidth(width)
-        res = imgui.InputText(name, sb)
-        imgui.PopItemWidth()
-    else
-        res = imgui.InputText(name, sb)
-    end
+-- imgui.DropInputText = function(name, sb, width)
+--     local res
+--     if width then
+--         imgui.PushItemWidth(width)
+--         res = imgui.InputText(name, sb)
+--         imgui.PopItemWidth()
+--     else
+--         res = imgui.InputText(name, sb)
+--     end
 
-    if iw_is_dropped() and (imgui.IsItemHovered() or imgui.IsItemActive()) then
-        local files = iw_get_drop_files()
-        sb:reset(files[1])
-        iw_set_dropped(false)
-    end
-    return res
-end
+--     if iw_is_dropped() and (imgui.IsItemHovered() or imgui.IsItemActive()) then
+--         local files = iw_get_drop_files()
+--         sb:reset(files[1])
+--         iw_set_dropped(false)
+--     end
+--     return res
+-- end
 
 utils_parse_tsv = function(name, columns)
     return utils_parse_tsv_file(vfs_get_tsvpath(name), columns)
@@ -511,7 +511,7 @@ function utils_get_action_res_id(avatar_type, id, action_id)
         cxlog_info('read action', AVATAR_TYPE_WEAPON, id, action_name)
     else
         cxlog_info('read action error', avatar_type, id, action_name)
-        return
+        return -1
     end
 
     local idstr = tbl[id][action_name]

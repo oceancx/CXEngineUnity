@@ -167,10 +167,10 @@ function init_equip_templ_table()
     return ret
 end
 
-local function prop_name_to_id(name)
-    local v = load(string.format('do return %s end',name:upper()))()
-    return v
-end
+-- local function prop_name_to_id(name)
+--     local v = load(string.format('do return %s end',name:upper()))()
+--     return v
+-- end
 
 function init_npc_table()
     local tbl,col_names = utils_parse_tsv('npc',{

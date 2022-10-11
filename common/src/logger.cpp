@@ -51,6 +51,7 @@ void Logger::Print(const char *format, ...)
 	//vfprintf(logf, format, ap);
 	vprintf(format, ap);
 	va_end(ap); 
+	fflush(stdout);
 }
 
 Logger::Logger()
@@ -58,7 +59,7 @@ Logger::Logger()
 	//logf = (fopen(FileSystem::GetAbsPath("log.txt").c_str(), "w"));
 	//assert(logf != NULL);
 	std::string path = FileSystem::GetAbsPath("log.txt");
-	freopen(path.c_str(), "w", stdout);
+	//freopen(path.c_str(), "w", stdout);
 }
 
 Logger::~Logger()
@@ -67,6 +68,7 @@ Logger::~Logger()
 }
 
 void luaopen_logger(lua_State* L) {
+	Logger::GetInstance();
 	script_system_register_function(L, log_print);
 	script_system_register_luac_function_with_name(L, "cxlog_info", lua_cxlog_info);
 	script_system_register_luac_function_with_name(L, "cxlog_err", lua_cxlog_info);

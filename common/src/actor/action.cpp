@@ -614,7 +614,7 @@ void ActionStateMachine::Draw()
 		avatar->Pos.x = pos.x;
 		avatar->Pos.y = pos.y;
 	}else{
-		if (m_Actor->IsLocal() && m_Actor->GetScene() != nullptr&&m_Actor->GetScene()->GetGameMap() != nullptr) {
+		if (m_Actor->IsLocal() && m_Actor->GetScene() != nullptr && m_Actor->GetScene()->GetGameMap() != nullptr) {
 			int mapWidth = m_Actor->GetScene()->GetGameMap()->GetWidth();
 			int mapHeight = m_Actor->GetScene()->GetGameMap()->GetHeight();
 			int px = m_Actor->GetX();
@@ -635,10 +635,13 @@ void ActionStateMachine::Draw()
 		else {
 			auto* player = actor_manager_fetch_local_player();
 			if (player) {
+				int offx = 0, offy = 0;
 				auto* scene = player->GetScene();
-				auto* map = scene->GetGameMap();
-				int offx = map->GetMapOffsetX();
-				int offy = map->GetMapOffsetY();
+				if (scene != nullptr && scene->GetGameMap() != nullptr) {
+					auto* map = scene->GetGameMap();
+					offx = map->GetMapOffsetX();
+					offy = map->GetMapOffsetY();
+				}
 				avatar->Pos.x = (float)(m_Actor->GetX() + offx);
 				avatar->Pos.y = (float)(m_Actor->GetY() + offy);
 			}else{

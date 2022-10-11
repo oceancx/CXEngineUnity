@@ -37,34 +37,34 @@ Actor::Actor(uint64_t pid)
 
 #ifndef SIMPLE_SERVER
 	m_MoveHandle = new MoveHandle(this);
-	m_SayWidget = new TextView();
-	m_SayWidget->PaddingHorizontal = 4;
-	m_SayWidget->PaddingVertical = 2;
-	m_SayWidget->ShowEmotion = true;
-	 m_SayWidget->BackgroundResID = RESOURCE_MANAGER_INSTANCE->EncodeWAS(WZIFEWDF, 0xEF073E43 /* 0xA4120EA9*/);
+	//m_SayWidget = new TextView();
+	//m_SayWidget->PaddingHorizontal = 4;
+	//m_SayWidget->PaddingVertical = 2;
+	//m_SayWidget->ShowEmotion = true;
+	// m_SayWidget->BackgroundResID = RESOURCE_MANAGER_INSTANCE->EncodeWAS(WZIFEWDF, 0xEF073E43 /* 0xA4120EA9*/);
 
 	m_SayDuration = 0;
 	m_ASM = new ActionStateMachine(this);  
-	INPUT_MANAGER_INSTANCE->RegisterView(this);
+	//INPUT_MANAGER_INSTANCE->RegisterView(this);
 	/*PathMoveAction* action = new PathMoveAction(this);
 	m_ASM->ChangeAction(action);*/
 	//m_ASM->PushAction(ACTION_IDLE);
 
-	m_NameTV = new UITextView();
+	/*m_NameTV = new UITextView();
 	m_NameTV->Font = "SIMSUN";
- 	m_NameTV->Size = 16.f;
+ 	m_NameTV->Size = 16.f;*/
 	/*m_NameTV->Align = NVG_ALIGN_CENTER;
 	m_NameTV->Color = nvgRGBA(118, 253, 140, 255);*/
-	UIRenderer::GetInstance()->AddToDraw(m_NameTV);
+	//UIRenderer::GetInstance()->AddToDraw(m_NameTV);
 
-	m_SayTV = new UITextView();
+	/*m_SayTV = new UITextView();
 	m_SayTV->Font = "SIMSUN";
-	m_SayTV->Size = 14.f;
+	m_SayTV->Size = 14.f;*/
 	//m_SayTV->Align = NVG_ALIGN_BOTTOM | NVG_ALIGN_CENTER;
 	//m_SayTV->Color = nvgRGBA(255, 255, 255, 255); // text color
 	//m_SayTV->BGColor = nvgRGBA(30, 30, 30, 128);
-	m_SayTV->WrapWidth = 100;
-	UIRenderer::GetInstance()->AddToDraw(m_SayTV);
+	/*m_SayTV->WrapWidth = 100;
+	UIRenderer::GetInstance()->AddToDraw(m_SayTV);*/
 
 	GetASM()->Reset();
 #endif
@@ -75,12 +75,12 @@ Actor::~Actor()
 	m_PatMatrix.clear();
 	
 #ifndef SIMPLE_SERVER
-	SafeDelete(m_MoveHandle);
+	/*SafeDelete(m_MoveHandle);
 	INPUT_MANAGER_INSTANCE->UnRegisterView(this);
 	SafeDelete(m_ASM);
 	SafeDelete(m_SayWidget);
 	UIRenderer::GetInstance()->RemoveToDraw(m_NameTV);
-	UIRenderer::GetInstance()->RemoveToDraw(m_SayTV);
+	UIRenderer::GetInstance()->RemoveToDraw(m_SayTV);*/
 #endif
 }
 
@@ -89,23 +89,23 @@ void Actor::OnUpdate()
 #ifndef SIMPLE_SERVER
 	m_MoveHandle->Update();
 	m_ASM->Update();
-	if (m_SayDuration > 0)
+	/*if (m_SayDuration > 0)
 	{
 		if (m_SayWidget)
 		{
 			m_SayWidget->OnUpdate();
 		}
-	}
+	}*/
 #endif
 }
 
 void Actor::OnDraw()
 {
 #ifndef SIMPLE_SERVER
+	m_ASM->Draw();
 	if (IsLocal() && !SCENE_MANAGER_INSTANCE->IsDrawStrider())return;
 
-	m_ASM->Draw();
-	ActorProp& name = GetProperty(PROP_NAME);
+	/*ActorProp& name = GetProperty(PROP_NAME);
 	if (!name.toString().empty())
 	{
 		m_NameTV->Text = name.toString();
@@ -115,9 +115,9 @@ void Actor::OnDraw()
 			m_NameTV->Y = avatar->Pos.y + 36;
 			m_NameTV->Draw();
 		}
-	}
+	}*/
 
-	if (m_SayDuration > 0)
+	/*if (m_SayDuration > 0)
 	{
 		int past = (int)WINDOW_INSTANCE->GetDeltaTimeMilliseconds();
 		m_SayDuration -= past;
@@ -128,7 +128,7 @@ void Actor::OnDraw()
 			m_SayTV->Text = m_SayText;
 			m_SayTV->Draw();
 		}
-	}
+	}*/
 #endif
 }
 
@@ -486,6 +486,7 @@ int actor_move_to(lua_State* L) {
 	float y = (float)lua_tonumber(L, 3);
 	actor->GetMoveHandle()->MoveTo(x, y);
 #endif
+	lua_settop(L, 0);
 	return 0;
 
 }

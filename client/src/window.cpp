@@ -10,7 +10,7 @@
 #include <script_system.h>
 #include "input_manager.h"
 #include "file_loading.h"
-#include "scene/scene_manager.h"
+#include "scene/scene_manager.h" 
 #include "logger.h"
 #include "cxlua.h"
 #include "sprite_renderer.h"

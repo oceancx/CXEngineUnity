@@ -242,6 +242,7 @@ private:
 
 void lua_push_base_sprite(lua_State* L, BaseSprite* sprite);
 void lua_push_animation(lua_State*L, Animation* sprite);
+void created_animation_draw();
 
 Animation* lua_check_animation(lua_State* L, int index);
 

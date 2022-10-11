@@ -9,6 +9,7 @@
 #include "cxmath.h"
 #include "actor/actor_manager.h"
 #include "graphics/ui_renderer.h"
+#include <mutex>
 
 
 String UtilsGetFramePath(Sprite* m_pSprite, int index)
@@ -182,13 +183,13 @@ Animation::Animation(uint64_t resoureID /*= 0*/, std::vector<PalSchemePart>* pat
 	m_UpdateCBRef = -1;
 	m_LoopMode = ANIMATION_LOOPMODE_RESTART;
 
-	lua_State* L = script_system_get_luastate();
+	m_Rotation = 0;
+	/*lua_State* L = script_system_get_luastate();
 	m_UserData = (Animation**)lua_newuserdata(L, sizeof(Animation*));
 	*m_UserData = this;
 	lua_newtable(L);
 	lua_setuservalue(L, -2);
-	m_LuaRef = luaL_ref(L, LUA_REGISTRYINDEX);
-	m_Rotation = 0;
+	m_LuaRef = luaL_ref(L, LUA_REGISTRYINDEX);*/
 	//lua_pop(L, 1);
 }
 
@@ -1203,9 +1204,18 @@ int animation_newindex(lua_State* L) {
 	return 1;
 }
 
-
+std::mutex created_animations_mutex;
+std::vector<Animation*> created_animations;
 int animation_destroy(lua_State* L) {
 	Animation* ptr = lua_check_animation(L, 1);
+	std::lock_guard<std::mutex> locker(created_animations_mutex);
+	for (int i = 0; i < created_animations.size(); i++)
+	{
+		if (created_animations[i] == ptr) {
+			created_animations.erase(created_animations.begin() + i);
+			break;
+		}
+	}
 	delete ptr;
 	return 0;
 }
@@ -1268,18 +1278,24 @@ void lua_push_animation(lua_State* L, Animation* sprite)
 	lua_setmetatable(L, -2);
 }
 
-
 int animation_create(lua_State* L)
 {
 	int argn = lua_gettop(L);
 	if (argn == 2) {
+
 		uint32_t pack = (uint32_t)lua_tointeger(L, 1);
 		uint32_t wasid = (uint32_t)lua_tointeger(L, 2);
-		lua_push_animation(L, new Animation(pack, wasid));
+		auto* anim = new Animation(pack, wasid);
+		std::lock_guard<std::mutex> locker(created_animations_mutex);
+		created_animations.push_back(anim);
+		lua_push_animation(L, anim);
 	}
 	else if (argn == 1) {
 		uint64_t resid = (uint64_t)lua_tointeger(L, 1);
-		lua_push_animation(L, new Animation(resid));
+		auto* anim = new Animation(resid);
+		std::lock_guard<std::mutex> locker(created_animations_mutex);
+		created_animations.push_back(anim);
+		lua_push_animation(L, anim);
 	}
 	else {
 		return 0;
@@ -1288,6 +1304,14 @@ int animation_create(lua_State* L)
 	return 1;
 }
 
+void created_animation_draw()
+{
+	std::lock_guard<std::mutex> locker(created_animations_mutex);
+	for (auto* anim : created_animations)
+	{
+		anim->Draw();
+	}
+}
 
 
 int base_sprite_get_metatable(lua_State* L) {
@@ -1370,6 +1394,9 @@ void animation_manager_clear()
 
 void luaopen_sprite(lua_State* L)
 {
+	std::lock_guard<std::mutex> locker(created_animations_mutex);
+	created_animations.clear();
+
 	script_system_register_luac_function(L, animation_create);
 	script_system_register_luac_function(L, animation_destroy);
 

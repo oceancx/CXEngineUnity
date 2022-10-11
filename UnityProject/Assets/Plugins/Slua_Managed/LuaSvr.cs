@@ -63,7 +63,7 @@ namespace SLua
 				if (LuaDLL.lua_gettop(L) != errorReported)
 				{
 					errorReported = LuaDLL.lua_gettop(L);
-					Logger.LogError(string.Format("Some function not remove temp value({0}) from lua stack. You should fix it.",LuaDLL.luaL_typename(L,errorReported)));
+					Logger.LogError(string.Format("Some function not remove temp value({0}) from lua stack. You should fix it.\n{1}",LuaDLL.luaL_typename(L,errorReported) , LuaDLL.lua_tostring(L,errorReported)));
 				}
 			}
 		}

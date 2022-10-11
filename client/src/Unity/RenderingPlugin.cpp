@@ -329,21 +329,21 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API OnGameStart()
 	};
 	handle_command_args(4, argv);
 	FileSystem::InitWorkPath();
-	script_system_prepare_init();
+	/*script_system_prepare_init();
 	script_system_run_main_script();
-	script_system_init();
+	script_system_init();*/
 	cxlog_info("game start");
 }
 
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API OnGameUpdate(float t)
 {
-	script_system_update();
+	//script_system_update();
 }
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API OnGameEnd()
 {
-	script_system_deinit();
+	//script_system_deinit();
 }
 
 void UNITY_INTERFACE_API OnGameDraw(int eventID)
