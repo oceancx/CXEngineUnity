@@ -184,12 +184,13 @@ Animation::Animation(uint64_t resoureID /*= 0*/, std::vector<PalSchemePart>* pat
 	m_LoopMode = ANIMATION_LOOPMODE_RESTART;
 
 	m_Rotation = 0;
-	/*lua_State* L = script_system_get_luastate();
+	lua_State* L = script_system_get_luastate();
 	m_UserData = (Animation**)lua_newuserdata(L, sizeof(Animation*));
 	*m_UserData = this;
 	lua_newtable(L);
 	lua_setuservalue(L, -2);
-	m_LuaRef = luaL_ref(L, LUA_REGISTRYINDEX);*/
+	m_LuaRef = luaL_ref(L, LUA_REGISTRYINDEX);
+	m_Rotation = 0;
 	//lua_pop(L, 1);
 }
 

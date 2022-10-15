@@ -16,7 +16,7 @@ SpriteRenderer::SpriteRenderer()
 {
 	// Configure shaders
 	//glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
-
+	 
 	m_pShader = new Shader(FileSystem::GetShaderPath("sprite.vs").c_str(), FileSystem::GetShaderPath("sprite.fs").c_str());
 	m_pShader->Bind();
 	glUniform1i(glGetUniformLocation(m_pShader->GetProgramID(), "image"), 0);
@@ -113,7 +113,7 @@ void SpriteRenderer::DrawBitmap(Texture* texture, glm::vec2 position, glm::vec2 
 {
 
 	m_pShader->Bind();
-
+	glEnable(GL_BLEND);
 	glm::mat4 model = mat_mul(position, size, 0);
 	glUniformMatrix4fv(glGetUniformLocation(m_pShader->GetProgramID(), "model"), 1, GL_FALSE, (GLfloat*)(&model));
 
@@ -177,6 +177,8 @@ void SpriteRenderer::DrawFrameSprite(unsigned int textureID, glm::vec2 position,
 
 	m_pShader->Bind();
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glm::mat4 model = mat_mul(position, size, rotate);
 
 	glUniformMatrix4fv(glGetUniformLocation(m_pShader->GetProgramID(), "model"), 1, GL_FALSE, (GLfloat*)(&model));

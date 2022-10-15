@@ -111,10 +111,10 @@ add_custom_command(TARGET CXEngine
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:CXEngine>"  ${UNITY_ASSETS_DIR}/Plugins
     COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_FILE:CXEngine> to ${UNITY_ASSETS_DIR}/Plugins"
-    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:CXEngine>"  ${UNITY_ASSETS_DIR}/Plugins
-    COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_PDB_FILE:CXEngine> to ${UNITY_ASSETS_DIR}/Plugins"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:lua>"  ${UNITY_ASSETS_DIR}/Plugins
     COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_FILE:lua> to ${UNITY_ASSETS_DIR}/Plugins"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:CXEngine>"  ${UNITY_ASSETS_DIR}/Plugins
+    COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_PDB_FILE:CXEngine> to ${UNITY_ASSETS_DIR}/Plugins"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_PDB_FILE:lua>"  ${UNITY_ASSETS_DIR}/Plugins
     COMMAND ${CMAKE_COMMAND} -E echo "copy $<TARGET_PDB_FILE:lua> to ${UNITY_ASSETS_DIR}/Plugins"
     VERBATIM
