@@ -1,0 +1,129 @@
+InitMAP:I:/Github/CXEngineUnity/data/scene/1001.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1002.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1004.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1005.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1006.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1007.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1008.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1009.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1013.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1014.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1015.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1016.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1017.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1018.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1019.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1020.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1021.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1022.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1023.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1024.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1025.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1026.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1028.map
+InitMAP:I:/Github/CXEngineUnity/data/sceneinit GameMaInitMAinit GameMap 4 4 init GameMap 3 3 init GameMap 3 3 init GameMap 5 5 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 4 4 init GameMap 4 4 init GameMap 11 11 init GameMap 8 8 init GameMap 8 8 init GameMap 2 2 init GameMap 8 8 init GameMap 3 3 init GameMap 5 5 init GameMap 4 4 init GameMap 4 4 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 4 4 init GameMap 18 10 init GameMap 2 2 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 2 2 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 7 9 init GameMap 14 12 init GameMap 13 14 init GameMap 3 4 init GameMap 3 3 init GameMap 4 4 init GameMap 3 3 init GameMap 4 4 init GameMap 4 4 init GameMap 3 3 init GameMap 6 6 init GameMap 4 4 init GameMap 3 3 init GameMap 4 4 init GameMap 3 3 init GameMap 28 22 init GameMap 14 16 init GameMap 7 7 init GameMap 3 3 init GameMap 8 8 init GameMap 10 14 init GameMap 4 4 init GameMap 4 4 init GameMap 4 4 init GameMap 4 4 init GameMap 4 4 init GameMap 10 10 init GameMap 4 4 init GameMap 3 3 init GameMap 3 3 init GameMap 8 8 init GameMap 8 8 init GameMap 8 8 init GameMap 8 8 init GameMap 8 8 init GameMap 9 9 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 14 12 init GameMap 5 5 init GameMap 6 6 init GameMap 4 4 init GameMap 12 8 init GameMap 3 3 init GameMap 5 3 init GameMap 3 3 init GameMap 7 7 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 3 4 init GameMap 3 3 init GameMap 3 3 init GameMap 4 4 init GameMap 2 2 init GameMap 10 40 init GameMap 15 15 init GameMap 5 6 init GameMap 8 11 init GameMap 7 9 init GameMap 7 10 init GameMap 6 9 init GameMap 6 9 init GameMap 7 9 init GameMap 7 9 init GameMap 6 8 init GameMap 6 8 init GameMap 6 8 init GameMap 10 10 init GameMap 6 8 init GameMap 9 11 init GameMap 3 2 init GameMap 12 12 init GameMap 4 3 init GameMap 4 4 init GameMap 12 8 init GameMap 16 16 init GameMap 4 4 init GameMap 3 3 init GameMap 3 3 init GameMap 4 4 init GameMap 3 3 init GameMap 4 4 init GameMap 14 6 init GameMap 4 5 init GameMap 4 4 init GameMap 10 12 init GameMap 8 4 init GameMap 12 12 init GameMap 6 6 read action	0	JXK-SWORD	idle
+init GameMap 10 12 init GameMap 12 12 init GameMap 20 10 init GameMap 8 8 init GameMap 13 13 init GameMap 4 4 init GameMap 10 10 init GameMap 12 12 init GameMap 6 8 init GameMap 6 8 init GameMap 6 8 read action	1	JXK-SWORD-060-X	idle
+init GameMap 6 8 init GameMap 10 10 init GameMap 3 3 init GameMap 13 12 init GameMap 6 10 init GameMap 7 6 init GameMap 3 3 init GameMap 3 3 init GameMap 3 3 init GameMap 4 3 init GameMap 12 18 init GameMap 3 2 init GameMap 3 3 init GameMap 3 3 init GameMap 4 4 init GameMap 10 8 read action	0	JXK-SWORD	walk
+read action	1	JXK-SWORD-060-X	walk
+
+=================================================================
+	Native Crash Reporting
+=================================================================
+Got a UNKNOWN while executing native code. This usually indicates
+a fatal error in the mono runtime or one of the native libraries 
+used by your application.
+=================================================================
+
+=================================================================
+	Managed Stacktrace:
+=================================================================
+	  at <unknown> <0xffffffff>
+	  at Game:script_system_update <0x000e5>
+	  at Game:Update <0x000ba>
+	  at System.Object:runtime_invoke_void__this__ <0x00187>
+=================================================================
+MAP:I:/Github/CXEngineUnity/data/scene/1129.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1130.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1131.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1132.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1133.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1134.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1135.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1137.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1140.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1141.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1142.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1143.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1144.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1145.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1146.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1147.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1149.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1152.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1153.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1167.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1168.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1170.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1171.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1173.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1174.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1175.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1177.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1178.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1179.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1180.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1181.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1182.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1183.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1186.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1187.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1192.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1193.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1197.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1198.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1525.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1202.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1527.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1528.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1205.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1206.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1532.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1533.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1534.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1535.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1536.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1537.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1218.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1219.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1220.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1221.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1211.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1210.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1209.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1208.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1204.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1203.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1512.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1513.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1531.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1511.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1201.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1191.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1190.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1189.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1188.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1514.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1529.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1207.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1507.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1508.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1509.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1523.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1524.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1526.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1501.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1502.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1503.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1504.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1505.map
+InitMAP:I:/Github/CXEngineUnity/data/scene/1506.map

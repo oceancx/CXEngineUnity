@@ -1,6 +1,8 @@
 # 简介：
 
-CXEngine是一个方便大家使用lua+imgui做游戏的游戏引擎，基本介绍参考：https://github.com/oceancx/CXEngine#readme。本项目为CXEngine的Unity移植版，目前还在开发中。仅仅实现了人物可以在地图上跑的功能。
+CXEngine是一个方便大家使用lua+imgui做游戏的游戏引擎，基本介绍参考：https://github.com/oceancx/CXEngine#readme。 
+
+本项目为CXEngine的Unity移植版，目前还在开发中。仅仅实现了人物可以在地图上跑的功能。
 
 # 编译运行（只尝试过windows）：
 
