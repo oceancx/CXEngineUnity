@@ -113,13 +113,15 @@ void script_system_run_main_script(lua_State* L)
 	check_lua_error(L, res);
 }
 
-void script_system_init(lua_State* _L)
+void script_system_init(lua_State* _L,const char* cwd)
 {
 	L = _L;
+	char cwd_cmd[256];
+	sprintf(cwd_cmd, "--cwd=%s/", cwd);
 	char* argv[] =
 	{
 		{"nil"},
-		{"--cwd=I:/Github/CXEngineUnity/"},
+		{cwd_cmd},
 		{"--script_path=scripts/client/"},
 		{"-Debug"},
 	};

@@ -7,7 +7,7 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_prepare
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_run_main_script(lua_State* L);
 
-extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_init(lua_State* L);
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_init(lua_State* L,const char* str);
 extern "C" bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_update(float t);
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_draw();
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API script_system_draw_ui();

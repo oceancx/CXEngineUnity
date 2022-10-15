@@ -7,12 +7,13 @@ using SLua;
 using ImGuiNET;
 using UnityEngine.Assertions.Must;
 using System.IO;
+
 public class Game : MonoBehaviour
 {
     [DllImport("CXEngine")]
     private static extern IntPtr GetRenderEventFunc();
     [DllImport("CXEngine")]
-    private static extern void script_system_init(IntPtr L);
+    private static extern void script_system_init(IntPtr L, string str);
     [DllImport("CXEngine")]
     private static extern void script_system_update(float t);
     [DllImport("CXEngine")]
@@ -32,7 +33,9 @@ public class Game : MonoBehaviour
             return bytes;
         };
         luaS.init(null, () => { });
-        script_system_init(LuaSvr.mainState.L);
+        string cwd = Application.dataPath;
+        cwd = cwd.Substring(0, cwd.IndexOf("UnityProject") - 1);
+        script_system_init(LuaSvr.mainState.L , cwd);
         
         ImGuiUn.Layout += OnImGuiLayout;
         yield return StartCoroutine("CallPluginAtEndOfFrames"); 
