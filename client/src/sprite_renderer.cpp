@@ -8,6 +8,7 @@
  ******************************************************************/
 #include "sprite_renderer.h"
 #include <lua_bind.h>
+#include "file_system.h"
 int W_WIDTH = 1920;
 int W_HEIGHT= 1080;
 
@@ -16,7 +17,7 @@ SpriteRenderer::SpriteRenderer()
 	// Configure shaders
 	//glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
 
-	m_pShader = new Shader(R"(I:\Github\CXEngineNew\assets\shader\sprite.vs)", R"(I:\Github\CXEngineNew\assets\shader\sprite.fs)");
+	m_pShader = new Shader(FileSystem::GetShaderPath("sprite.vs").c_str(), FileSystem::GetShaderPath("sprite.fs").c_str());
 	m_pShader->Bind();
 	glUniform1i(glGetUniformLocation(m_pShader->GetProgramID(), "image"), 0);
 	glm::mat4 projection = glm::ortho(0.0f, W_WIDTH * 1.0f, W_HEIGHT* 1.0f, 0.0f, -1.0f, 1.0f);
@@ -86,7 +87,7 @@ static inline glm::mat4 mat_mul(glm::vec2 position, glm::vec2 size, GLfloat rota
 void SpriteRenderer::DrawSprite(Texture* texture, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color)
 {
 	m_pShader->Bind();
-
+	glEnable(GL_BLEND);
 	glEnable(GL_STENCIL_TEST);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -143,6 +144,7 @@ void SpriteRenderer::DrawMask(Texture* texture, glm::vec2 position, glm::vec2 si
 
 	// Prepare transformations
 	m_pShader->Bind();
+	glEnable(GL_BLEND);
 	glm::mat4 model = mat_mul(position, size, rotate);
 
 	glUniformMatrix4fv(glGetUniformLocation(m_pShader->GetProgramID(), "model"), 1, GL_FALSE, (GLfloat*)(&model));
@@ -174,31 +176,7 @@ void SpriteRenderer::DrawFrameSprite(unsigned int textureID, glm::vec2 position,
 {
 
 	m_pShader->Bind();
-
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendEquation(GL_FUNC_ADD);
-	//static GLfloat vertices[] = {
-	//	// Pos      // Tex
-	//	0.0f, 1.0f, 0.0f, 1.0f,
-	//	0.0f, 0.0f, 0.0f, 0.0f,
-	//	1.0f, 0.0f, 1.0f, 0.0f,
-
-	//	0.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0f, 1.0f, 1.0f, 1.0f,
-	//	1.0f, 0.0f, 1.0f, 0.0f
-	//};
-
-	//glGenBuffers(1, &VBO);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	//glGenVertexArrays(1, &quadVAO);
-	//glBindVertexArray(quadVAO);
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
-	//glBindVertexArray(0);
-
-
+	glEnable(GL_BLEND);
 	glm::mat4 model = mat_mul(position, size, rotate);
 
 	glUniformMatrix4fv(glGetUniformLocation(m_pShader->GetProgramID(), "model"), 1, GL_FALSE, (GLfloat*)(&model));
@@ -210,6 +188,7 @@ void SpriteRenderer::DrawFrameSprite(unsigned int textureID, glm::vec2 position,
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glUniform1i(glGetUniformLocation(m_pShader->GetProgramID(), "image"), 0);
+
 	glBindVertexArray(quadVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	m_DrawCall++;
@@ -225,7 +204,7 @@ void SpriteRenderer::DrawMapSprite(Texture* texture, glm::vec2 position, glm::ve
 
 	// Prepare transformations
 	m_pShader->Bind();
-
+	glEnable(GL_BLEND);
 	glm::mat4 model = mat_mul(position, size, rotate);
 
 	glUniformMatrix4fv(glGetUniformLocation(m_pShader->GetProgramID(), "model"), 1, GL_FALSE, (GLfloat*)(&model));
@@ -287,29 +266,33 @@ void SpriteRenderer::initRenderData()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	//GLfloat symmetricalVertices[] = {
-	//	// Pos      // Tex
-	//	0.0f, 1.0f, 1.0f, 1.0f,
-	//	0.0f, 0.0f, 1.0f, 0.0f,
-	//	1.0f, 0.0f, 0.0f, 0.0f,
+	GLfloat symmetricalVertices[] = {
+		// Pos      // Tex
+		0.0f, 1.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f, 0.0f,
 
 
-	//	0.0f, 1.0f, 1.0f, 1.0f,
-	//	1.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0f, 0.0f, 0.0f, 0.0f
-	//};
+		0.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 0.0f, 0.0f
+	};
 
-	//glGenBuffers(1, &symmetricalVBO);
-	//glBindBuffer(GL_ARRAY_BUFFER, symmetricalVBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(symmetricalVertices), symmetricalVertices, GL_STATIC_DRAW);
+	glGenBuffers(1, &symmetricalVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, symmetricalVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(symmetricalVertices), symmetricalVertices, GL_STATIC_DRAW);
 
-	//glGenVertexArrays(1, &symmetricalQuadVAO);
-	//glBindVertexArray(symmetricalQuadVAO);
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
-	//glBindVertexArray(0);
+	glGenVertexArrays(1, &symmetricalQuadVAO);
+	glBindVertexArray(symmetricalQuadVAO);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+	glBindVertexArray(0);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendEquation(GL_FUNC_ADD);
 }
 
 

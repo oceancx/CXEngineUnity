@@ -126,6 +126,8 @@ void script_system_init(lua_State* _L)
 	handle_command_args(4, argv);
 	FileSystem::InitWorkPath();
 
+	//freopen(FileSystem::GetAbsPath("log.txt").c_str(), "w", stdout);
+	//freopen(FileSystem::GetAbsPath("log.txt").c_str(), "w", stderr);
 	script_system_prepare_init(L);
 	script_system_run_main_script(L);
 	script_system_call_function(L, "on_script_system_init");
@@ -145,8 +147,9 @@ bool script_system_update(float t)
 
 void script_system_draw()
 {
-	actor_manager_draw();
-	created_animation_draw();
+	//actor_manager_draw();
+	SceneManager::GetInstance()->Draw();
+	//created_animation_draw();
 }
 void script_system_draw_ui()
 {

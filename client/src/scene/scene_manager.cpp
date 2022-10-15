@@ -164,7 +164,7 @@ void SceneManager::Update()
 void SceneManager::Draw()
 {
 	if (m_SwitchingScene)return;
-	glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
+	//glBindFramebuffer(GL_FRAMEBUFFER, WINDOW_INSTANCE->GetFrameBuffer());
 
 	SpriteRenderer::GetInstance()->ResetDrawCall();
 	int gameWidth = WINDOW_INSTANCE->GetWidth();
@@ -178,13 +178,13 @@ void SceneManager::Draw()
 		script_system_call_function(script_system_get_luastate(), "on_scene_manager_draw", m_pCurrentScene->GetName());
 	}
 
-	UIRenderer::GetInstance()->Begin();
+	/*UIRenderer::GetInstance()->Begin();
 	UIRenderer::GetInstance()->Draw();
-	UIRenderer::GetInstance()->End();
+	UIRenderer::GetInstance()->End();*/
 
 	sLastDrawCall = SpriteRenderer::GetInstance()->GetDrawCall();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 };
 
 

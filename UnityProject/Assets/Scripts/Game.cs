@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
             yield return new WaitForEndOfFrame();
             // Set time for the plugin
             // OnGameUpdate(Time.timeSinceLevelLoad);
-           
+            script_system_update(Time.timeSinceLevelLoad);
             // Issue a plugin event with arbitrary integer identifier.
             // The plugin can distinguish between different
             // things it needs to do based on this ID.
@@ -70,7 +70,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        script_system_update(Time.timeSinceLevelLoad);
+       
     }
 }
 

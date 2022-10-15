@@ -44,11 +44,11 @@ Actor::Actor(uint64_t pid)
 	// m_SayWidget->BackgroundResID = RESOURCE_MANAGER_INSTANCE->EncodeWAS(WZIFEWDF, 0xEF073E43 /* 0xA4120EA9*/);
 
 	m_SayDuration = 0;
-	m_ASM = new ActionStateMachine(this);  
 	//INPUT_MANAGER_INSTANCE->RegisterView(this);
+	m_ASM = new ActionStateMachine(this);  
 	/*PathMoveAction* action = new PathMoveAction(this);
-	m_ASM->ChangeAction(action);*/
-	//m_ASM->PushAction(ACTION_IDLE);
+	m_ASM->ChangeAction(action);
+	m_ASM->PushAction(ACTION_IDLE);*/
 
 	/*m_NameTV = new UITextView();
 	m_NameTV->Font = "SIMSUN";
@@ -75,9 +75,9 @@ Actor::~Actor()
 	m_PatMatrix.clear();
 	
 #ifndef SIMPLE_SERVER
-	/*SafeDelete(m_MoveHandle);
-	INPUT_MANAGER_INSTANCE->UnRegisterView(this);
 	SafeDelete(m_ASM);
+	SafeDelete(m_MoveHandle);
+	/*INPUT_MANAGER_INSTANCE->UnRegisterView(this);
 	SafeDelete(m_SayWidget);
 	UIRenderer::GetInstance()->RemoveToDraw(m_NameTV);
 	UIRenderer::GetInstance()->RemoveToDraw(m_SayTV);*/
@@ -102,8 +102,8 @@ void Actor::OnUpdate()
 void Actor::OnDraw()
 {
 #ifndef SIMPLE_SERVER
-	m_ASM->Draw();
 	if (IsLocal() && !SCENE_MANAGER_INSTANCE->IsDrawStrider())return;
+	m_ASM->Draw();
 
 	/*ActorProp& name = GetProperty(PROP_NAME);
 	if (!name.toString().empty())

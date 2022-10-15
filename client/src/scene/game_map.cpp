@@ -15,7 +15,7 @@
 #endif
 #include "logger.h"
 
-
+#define PRELOAD_ROW 8
 GameMap::GameMap(uint32 mapID)
 	:m_XyqMap(nullptr)
 {
@@ -65,7 +65,6 @@ GameMap::GameMap(uint32 mapID)
 		m_MapTiles.clear();
 
 		m_MaskTiles.clear();
-		m_CellPic = new Texture(FileSystem::GetAbsPath("assets/icon/x.png"));
 #endif
 		
 	}
@@ -290,6 +289,10 @@ void GameMap::Draw(int playerX, int playerY)
 	auto* iothread = file_loading_thread();
 	std::string fileName = FileSystem::GetMapPath(std::to_string(m_MapID));
 	if (!iothread->IsFileLoadOk(fileName.c_str()))return;
+	if (m_CellPic == nullptr)
+	{
+		m_CellPic = new Texture(FileSystem::GetAbsPath("assets/icon/x.png"));
+	}
 
 	SpriteRenderer* renderer = SPRITE_RENDERER_INSTANCE;
 	int screenWidth = WINDOW_INSTANCE->GetWidth();
@@ -306,14 +309,14 @@ void GameMap::Draw(int playerX, int playerY)
 	m_MapOffsetY = mapOffsetY;
 
 	int startRow, endRow, startCol, endCol;
-	startRow = playerY / m_MapTileHeight - 3;
+	startRow = playerY / m_MapTileHeight - PRELOAD_ROW;
 	startRow = startRow < 0 ? 0 : startRow;
-	endRow = playerY / m_MapTileHeight + 3;
+	endRow = playerY / m_MapTileHeight + PRELOAD_ROW;
 	endRow = endRow > m_Row ? m_Row : endRow;
 
-	startCol = playerX / m_MapTileWidth - 3;
+	startCol = playerX / m_MapTileWidth - PRELOAD_ROW;
 	startCol = startCol < 0 ? 0 : startCol;
-	endCol = playerX / m_MapTileWidth + 3;
+	endCol = playerX / m_MapTileWidth + PRELOAD_ROW;
 	endCol = endCol > m_Col ? m_Col : endCol;
 
 

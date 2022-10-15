@@ -866,10 +866,10 @@ return dumpstack
 #endif
 
             pushcsfunction(L, dofile);
-            LuaDLL.lua_setglobal(L, "dofile");
+            LuaDLL.lua_setglobal(L, "csdofile");
 
             pushcsfunction(L, loadfile);
-            LuaDLL.lua_setglobal(L, "loadfile");
+            LuaDLL.lua_setglobal(L, "csloadfile");
 
             pushcsfunction(L, loader);
             int loaderFunc = LuaDLL.lua_gettop(L);

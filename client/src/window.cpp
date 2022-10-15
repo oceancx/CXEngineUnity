@@ -22,16 +22,16 @@ extern "C" {
 	void font_release(struct font_context* ctx) {}
 }
 
-#define GAME_SCREEN_WIDTH 800
-#define GAME_SCREEN_HEIGHT 600
+#define GAME_SCREEN_WIDTH 1920
+#define GAME_SCREEN_HEIGHT 1080
 
 class GLFWwindow
 {
 
 };
 static const float MS_PER_UPDATE = 1000 / 60.f / 1000;
-int m_Width = 0;
-int m_Height = 0;
+int m_Width = 1920;
+int m_Height = 1080;
 int m_WindowWidth;
 int m_WindowHeight;
 float g_ScreenScale = 1.f;

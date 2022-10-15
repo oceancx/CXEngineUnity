@@ -2,28 +2,6 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 DefaultMapID = 1001
 
-function script_system_dofile(relative_path)
-    local path = vfs_get_luapath(relative_path)
-    print(path)
-    local subpaths = {} 
-    path = path..'/'
-    for subpath in path:gmatch('(.-)[\\/]') do
-        if #subpaths == 0 then
-            subpath = subpath:lower()
-        end
-        if subpath == '..' then
-            table.remove(subpaths)
-        else
-            table.insert(subpaths,subpath)
-        end
-    end
-	path = table.concat(subpaths,'\\')
-    local err = dofile(path)
-    if err then
-        print(err)
-    end
-end
-
 
 -- script_system_dofile('../share/enums.lua')
 -- script_system_dofile('../share/enums_protocol.lua')
@@ -74,10 +52,22 @@ function on_script_system_init()
     -- net_manager_init(SERVER_HOST, SERVER_PORT)
     -- load_all_addons()
     content_system_init()           --这个函数在content_system.lua里面定义，会加载各种数据表(tables/*.tsv)，游戏内容基本上是由表来定义的
+
+    local scene_tbl = content_system_get_table('scene')
+    for id, row in pairs(scene_tbl) do
+        scene_manager_add_custom_scene(id, row.name, row.map_id)
+    end
+
     actor = actor_manager_create_actor(5)     --lua_create_actor的参数是actor的id，这里就随便填了个1
     actor:ResetASM()                --ResetASM是重新设置actor的动作状态机，目前需要这么手动调用一下
     actor:SetPos(500, 400)                  --设置玩家的世界坐标
     actor_manager_set_local_player(actor:GetID())
+
+    local player = actor_manager_fetch_local_player()
+    local scene_id = player:GetProperty(PROP_SCENE_ID)    
+    scene_manager_switch_scene_by_id(scene_id)          --scene_id可以在scene.tsv里面查到
+
+    -- scene_manager_sync_draw_cbx(false, true, true, true, false, false)
 end
 
 function on_script_system_update()
@@ -86,10 +76,11 @@ function on_script_system_update()
     -- scene_manager_update()
     -- scene_manager_draw()
     if not actor then return end
-    actor:Update()
-
-    if imgui.IsMouseReleased(0) then
-        actor:MoveTo(Game.mouseX, Game.mouseY) 
+    scene_manager_update()
+    -- actor:Update()
+    if imgui.IsMouseClicked(0) then
+        local dest_x, dest_y = util_screen_pos_to_map_pos(Game.mouseX, Game.mouseY)  
+        actor:MoveTo(dest_x, dest_y) 
     end
 end
  
@@ -109,4 +100,7 @@ function on_script_system_draw_ui()
     --     local x, y = anim:GetPos()
     --     anim:SetPos(x, y - 5)
     -- end
+    
 end
+
+ 
